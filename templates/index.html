@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Builder - Create Your Professional Resume</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Professional CV Builder</h1>
+            <p class="subtitle">Create a stunning resume in minutes</p>
+        </header>
+
+        <form id="cvForm">
+            <!-- Personal Information Section -->
+            <section class="form-section">
+                <h2><i class="fas fa-user"></i> Personal Information</h2>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="title">Professional Title *</label>
+                        <input type="text" id="title" name="title" placeholder="e.g. Software Engineer, Marketing Manager" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" name="city">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" id="country" name="country">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="linkedin">LinkedIn URL</label>
+                        <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/yourprofile">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="website">Website/Portfolio</label>
+                        <input type="url" id="website" name="website" placeholder="https://yourwebsite.com">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Professional Summary Section -->
+            <section class="form-section">
+                <h2><i class="fas fa-file-alt"></i> Professional Summary</h2>
+                <div class="form-group full-width">
+                    <label for="summary">Brief summary about yourself *</label>
+                    <textarea id="summary" name="summary" rows="5" placeholder="Write 2-3 sentences about your professional background and goals..." required></textarea>
+                </div>
+            </section>
+
+            <!-- Work Experience Section -->
+            <section class="form-section">
+                <h2><i class="fas fa-briefcase"></i> Work Experience</h2>
+                <div id="workExperienceContainer">
+                    <div class="repeatable-item" data-index="0">
+                        <h3>Job #1</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Job Title *</label>
+                                <input type="text" name="work_title_0" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Company *</label>
+                                <input type="text" name="work_company_0" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Location</label>
+                                <input type="text" name="work_location_0" placeholder="City, Country">
+                            </div>
+                            <div class="form-group">
+                                <label>Start Date *</label>
+                                <input type="month" name="work_start_0" required>
+                            </div>
+                            <div class="form-group">
+                                <label>End Date</label>
+                                <input type="month" name="work_end_0">
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <label>
+                                    <input type="checkbox" name="work_current_0"> Currently working here
+                                </label>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Key Responsibilities (one per line)</label>
+                                <textarea name="work_responsibilities_0" rows="4" placeholder="• Managed team of 5 developers&#10;• Led project delivery&#10;• Improved system performance"></textarea>
+                            </div>
+                        </div>
+                        <button type="button" class="remove-btn" onclick="removeItem(this)">Remove Job</button>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addWorkExperience()">+ Add Another Job</button>
+            </section>
+
+            <!-- Education Section -->
+            <section class="form-section">
+                <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+                <div id="educationContainer">
+                    <div class="repeatable-item" data-index="0">
+                        <h3>Education #1</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Degree *</label>
+                                <input type="text" name="edu_degree_0" placeholder="e.g. Bachelor of Science" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Field of Study *</label>
+                                <input type="text" name="edu_field_0" placeholder="e.g. Computer Science" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Institution *</label>
+                                <input type="text" name="edu_institution_0" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Location</label>
+                                <input type="text" name="edu_location_0">
+                            </div>
+                            <div class="form-group">
+                                <label>Start Date</label>
+                                <input type="month" name="edu_start_0">
+                            </div>
+                            <div class="form-group">
+                                <label>End Date</label>
+                                <input type="month" name="edu_end_0">
+                            </div>
+                            <div class="form-group">
+                                <label>GPA (optional)</label>
+                                <input type="text" name="edu_gpa_0" placeholder="e.g. 3.8/4.0">
+                            </div>
+                        </div>
+                        <button type="button" class="remove-btn" onclick="removeItem(this)">Remove Education</button>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addEducation()">+ Add Another Education</button>
+            </section>
+
+            <!-- Skills Section -->
+            <section class="form-section">
+                <h2><i class="fas fa-star"></i> Skills</h2>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>Technical Skills (comma separated)</label>
+                        <input type="text" id="technical_skills" name="technical_skills" placeholder="Python, JavaScript, React, SQL, AWS">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Soft Skills (comma separated)</label>
+                        <input type="text" id="soft_skills" name="soft_skills" placeholder="Leadership, Communication, Problem Solving, Team Management">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Certifications Section (Optional) -->
+            <section class="form-section">
+                <h2><i class="fas fa-certificate"></i> Certifications (Optional)</h2>
+                <div id="certificationsContainer">
+                    <div class="repeatable-item" data-index="0">
+                        <h3>Certification #1</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Certification Name</label>
+                                <input type="text" name="cert_name_0" placeholder="e.g. AWS Solutions Architect">
+                            </div>
+                            <div class="form-group">
+                                <label>Issuing Organization</label>
+                                <input type="text" name="cert_org_0" placeholder="e.g. Amazon Web Services">
+                            </div>
+                            <div class="form-group">
+                                <label>Date Obtained</label>
+                                <input type="month" name="cert_date_0">
+                            </div>
+                        </div>
+                        <button type="button" class="remove-btn" onclick="removeItem(this)">Remove Certification</button>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addCertification()">+ Add Another Certification</button>
+            </section>
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <button type="submit" class="primary-btn"><i class="fas fa-eye"></i> Preview CV</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/form.js') }}"></script>
+</body>
+</html>

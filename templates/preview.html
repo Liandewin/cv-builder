@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CV - {{ cv_data.personal_info.name }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* PDF-optimized styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            font-size: 11pt;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .cv-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .cv-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 20px;
+        }
+
+        .cv-name {
+            font-size: 28pt;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .cv-title {
+            font-size: 14pt;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .cv-contact {
+            font-size: 10pt;
+            color: #666;
+        }
+
+        .cv-contact span {
+            margin: 0 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .cv-contact i {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Sections */
+        .cv-section {
+            margin-bottom: 25px;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #2c3e50;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Professional Summary */
+        .summary-text {
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+
+        /* Experience & Education Items */
+        .experience-item,
+        .education-item,
+        .certification-item {
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .item-title {
+            font-size: 12pt;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .item-subtitle {
+            font-size: 10pt;
+            color: #666;
+            font-style: italic;
+        }
+
+        .item-date {
+            font-size: 10pt;
+            color: #888;
+            white-space: nowrap;
+        }
+
+        /* Lists */
+        .responsibilities-list {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+
+        .responsibilities-list li {
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
+        /* Skills */
+        .skills-group {
+            margin-bottom: 12px;
+        }
+
+        .skills-group strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            padding: 4px 12px;
+            border-radius: 3px;
+            font-size: 9pt;
+            display: inline-block;
+        }
+
+        .gpa {
+            font-size: 10pt;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Links */
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-container">
+        <!-- Header -->
+        <div class="cv-header">
+            <h1 class="cv-name">{{ cv_data.personal_info.name }}</h1>
+            <h2 class="cv-title">{{ cv_data.personal_info.title }}</h2>
+            
+            <div class="cv-contact">
+                <span><i class="fas fa-envelope"></i> {{ cv_data.personal_info.email }}</span>
+                <span><i class="fas fa-phone"></i> {{ cv_data.personal_info.phone }}</span>
+                {% if cv_data.personal_info.address.city %}
+                <span><i class="fas fa-map-marker-alt"></i> {{ cv_data.personal_info.address.city }}{% if cv_data.personal_info.address.country %}, {{ cv_data.personal_info.address.country }}{% endif %}</span>
+                {% endif %}
+                {% if cv_data.personal_info.linkedin %}
+                <span><i class="fab fa-linkedin"></i> <a href="{{ cv_data.personal_info.linkedin }}">LinkedIn</a></span>
+                {% endif %}
+                {% if cv_data.personal_info.website %}
+                <span><i class="fas fa-globe"></i> <a href="{{ cv_data.personal_info.website }}">Website</a></span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Professional Summary -->
+        {% if cv_data.professional_summary %}
+        <div class="cv-section">
+            <h3 class="section-title">Professional Summary</h3>
+            <p class="summary-text">{{ cv_data.professional_summary }}</p>
+        </div>
+        {% endif %}
+
+        <!-- Work Experience -->
+        {% if cv_data.work_experience %}
+        <div class="cv-section">
+            <h3 class="section-title">Work Experience</h3>
+            {% for job in cv_data.work_experience %}
+            <div class="experience-item">
+                <div class="item-header">
+                    <div>
+                        <h4 class="item-title">{{ job.job_title }}</h4>
+                        <p class="item-subtitle">{{ job.company }}{% if job.location %} • {{ job.location }}{% endif %}</p>
+                    </div>
+                    <div class="item-date">
+                        {{ job.start_date }} - {% if job.current %}Present{% else %}{{ job.end_date }}{% endif %}
+                    </div>
+                </div>
+                {% if job.responsibilities %}
+                <ul class="responsibilities-list">
+                    {% for responsibility in job.responsibilities %}
+                    {% if responsibility %}
+                    <li>{{ responsibility }}</li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Education -->
+        {% if cv_data.education %}
+        <div class="cv-section">
+            <h3 class="section-title">Education</h3>
+            {% for edu in cv_data.education %}
+            <div class="education-item">
+                <div class="item-header">
+                    <div>
+                        <h4 class="item-title">{{ edu.degree }}{% if edu.field_of_study %} in {{ edu.field_of_study }}{% endif %}</h4>
+                        <p class="item-subtitle">{{ edu.institution }}{% if edu.location %} • {{ edu.location }}{% endif %}</p>
+                    </div>
+                    <div class="item-date">
+                        {% if edu.start_date %}{{ edu.start_date }} - {% endif %}{{ edu.end_date }}
+                    </div>
+                </div>
+                {% if edu.gpa %}
+                <p class="gpa">GPA: {{ edu.gpa }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Skills -->
+        {% if cv_data.skills %}
+        <div class="cv-section">
+            <h3 class="section-title">Skills</h3>
+            {% if cv_data.skills.technical %}
+            <div class="skills-group">
+                <strong>Technical Skills:</strong>
+                <div class="skills-list">
+                    {% for skill in cv_data.skills.technical %}
+                    {% if skill %}
+                    <span class="skill-tag">{{ skill }}</span>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% if cv_data.skills.soft %}
+            <div class="skills-group">
+                <strong>Soft Skills:</strong>
+                <div class="skills-list">
+                    {% for skill in cv_data.skills.soft %}
+                    {% if skill %}
+                    <span class="skill-tag">{{ skill }}</span>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Certifications -->
+        {% if cv_data.certifications %}
+        <div class="cv-section">
+            <h3 class="section-title">Certifications</h3>
+            {% for cert in cv_data.certifications %}
+            {% if cert.name %}
+            <div class="certification-item">
+                <div class="item-header">
+                    <div>
+                        <h4 class="item-title">{{ cert.name }}</h4>
+                        <p class="item-subtitle">{{ cert.issuing_organization }}</p>
+                    </div>
+                    <div class="item-date">{{ cert.date_obtained }}</div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

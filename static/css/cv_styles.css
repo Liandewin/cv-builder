@@ -1,0 +1,385 @@
+/* Import Professional Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* CV Document Styles */
+.cv-document {
+    font-family: 'Inter', 'Helvetica', 'Arial', sans-serif;
+    line-height: 1.7;
+    color: #2c3e50;
+    max-width: 850px;
+    margin: 0 auto;
+    background: white;
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* CV Header */
+.cv-header {
+    text-align: center;
+    padding: 40px 0 35px;
+    margin-bottom: 35px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 0 0 30px 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cv-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+.cv-name {
+    font-size: 2.8em;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 10px;
+    position: relative;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cv-title {
+    font-size: 1.4em;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 400;
+    margin-bottom: 20px;
+    position: relative;
+    letter-spacing: 0.5px;
+}
+
+.cv-contact {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    font-size: 0.95em;
+    color: rgba(255, 255, 255, 0.9);
+    position: relative;
+}
+
+.cv-contact span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px 16px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.cv-contact span:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.cv-contact a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.cv-contact a:hover {
+    text-decoration: underline;
+}
+
+/* CV Sections */
+.cv-section {
+    margin-bottom: 35px;
+    animation: slideUp 0.6s ease-out backwards;
+}
+
+.cv-section:nth-child(2) { animation-delay: 0.1s; }
+.cv-section:nth-child(3) { animation-delay: 0.2s; }
+.cv-section:nth-child(4) { animation-delay: 0.3s; }
+.cv-section:nth-child(5) { animation-delay: 0.4s; }
+.cv-section:nth-child(6) { animation-delay: 0.5s; }
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-title {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #667eea;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 2px;
+}
+
+/* Summary */
+.summary-text {
+    text-align: justify;
+    line-height: 1.8;
+    color: #4a5568;
+    margin-bottom: 10px;
+    font-size: 1.05em;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    border-radius: 12px;
+    border-left: 4px solid #667eea;
+}
+
+/* Experience & Education Items */
+.experience-item,
+.education-item,
+.certification-item {
+    margin-bottom: 30px;
+    padding: 25px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border-left: 4px solid #667eea;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.experience-item:hover,
+.education-item:hover,
+.certification-item:hover {
+    transform: translateX(5px);
+    box-shadow: -5px 5px 20px rgba(102, 126, 234, 0.1);
+}
+
+.experience-item::before,
+.education-item::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 25px;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border: 4px solid #667eea;
+    border-radius: 50%;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    gap: 20px;
+}
+
+.item-title {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 6px;
+    line-height: 1.3;
+}
+
+.item-subtitle {
+    font-size: 1em;
+    color: #667eea;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.item-date {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    white-space: nowrap;
+    font-weight: 600;
+    background: rgba(102, 126, 234, 0.1);
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+/* Responsibilities List */
+.responsibilities-list {
+    margin-left: 20px;
+    margin-top: 12px;
+}
+
+.responsibilities-list li {
+    margin-bottom: 10px;
+    line-height: 1.7;
+    color: #4a5568;
+    position: relative;
+    padding-left: 10px;
+}
+
+.responsibilities-list li::before {
+    content: '▸';
+    position: absolute;
+    left: -10px;
+    color: #667eea;
+    font-weight: bold;
+}
+
+/* Skills */
+.skills-group {
+    margin-bottom: 20px;
+}
+
+.skills-group strong {
+    color: #2c3e50;
+    display: block;
+    margin-bottom: 12px;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.skill-tag {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.95em;
+    font-weight: 500;
+    display: inline-block;
+    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* GPA */
+.gpa {
+    font-size: 0.95em;
+    color: #7f8c8d;
+    margin-top: 10px;
+    font-weight: 500;
+    background: rgba(102, 126, 234, 0.1);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 8px;
+}
+
+/* Certification Item Specific */
+.certification-item::before {
+    content: '🏆';
+    position: absolute;
+    left: -8px;
+    top: 25px;
+    font-size: 1.2em;
+}
+
+.certification-item {
+    border-left-color: #27ae60;
+}
+
+/* Responsive Design for CV */
+@media (max-width: 768px) {
+    .cv-name {
+        font-size: 2em;
+    }
+    
+    .cv-title {
+        font-size: 1.2em;
+    }
+    
+    .cv-contact {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .cv-contact span {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .item-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .item-date {
+        align-self: flex-start;
+    }
+    
+    .skills-list {
+        gap: 10px;
+    }
+    
+    .skill-tag {
+        font-size: 0.85em;
+        padding: 8px 16px;
+    }
+    
+    .experience-item,
+    .education-item,
+    .certification-item {
+        padding: 20px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .cv-document {
+        font-size: 11pt;
+    }
+    
+    .cv-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .skill-tag {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .cv-contact a {
+        color: white !important;
+    }
+    
+    .experience-item,
+    .education-item,
+    .certification-item {
+        page-break-inside: avoid;
+    }
+    
+    .experience-item:hover,
+    .education-item:hover,
+    .certification-item:hover {
+        transform: none;
+        box-shadow: none;
+    }
+}

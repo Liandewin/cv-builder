@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environment (IMPORTANT - don't upload venv!)
+venv/
+env/
+ENV/
+
+# Flask
+instance/
+.webassets-cache
+
+# IDE (code editor files)
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS (Mac/Windows system files)
+.DS_Store
+Thumbs.db
+
+# Environment variables (for secrets later)
+.env
+.flaskenv

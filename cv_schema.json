@@ -1,0 +1,93 @@
+{
+  "personal_info": {
+    "name": "",
+    "title": "",
+    "email": "",
+    "phone": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zip": "",
+      "country": ""
+    },
+    "linkedin": "",
+    "website": "",
+    "photo_url": ""
+  },
+  "professional_summary": "",
+  "work_experience": [
+    {
+      "job_title": "",
+      "company": "",
+      "location": "",
+      "start_date": "",
+      "end_date": "",
+      "current": false,
+      "responsibilities": [
+        ""
+      ],
+      "achievements": [
+        ""
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "",
+      "field_of_study": "",
+      "institution": "",
+      "location": "",
+      "start_date": "",
+      "end_date": "",
+      "current": false,
+      "gpa": "",
+      "honors": ""
+    }
+  ],
+  "skills": {
+    "technical": [
+      ""
+    ],
+    "soft": [
+      ""
+    ],
+    "languages": [
+      {
+        "language": "",
+        "proficiency": ""
+      }
+    ]
+  },
+  "certifications": [
+    {
+      "name": "",
+      "issuing_organization": "",
+      "date_obtained": "",
+      "expiry_date": "",
+      "credential_id": ""
+    }
+  ],
+  "projects": [
+    {
+      "name": "",
+      "description": "",
+      "technologies": [
+        ""
+      ],
+      "url": "",
+      "start_date": "",
+      "end_date": ""
+    }
+  ],
+  "references": [
+    {
+      "name": "",
+      "title": "",
+      "company": "",
+      "email": "",
+      "phone": "",
+      "relationship": ""
+    }
+  ]
+}
