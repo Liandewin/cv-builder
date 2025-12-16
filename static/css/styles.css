@@ -372,6 +372,9 @@ header h1 {
     align-items: center;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     animation: fadeInDown 0.6s ease-out;
+    position: sticky;
+    top: 20px;
+    z-index: 100;
 }
 
 @keyframes fadeInDown {
@@ -394,6 +397,11 @@ header h1 {
 .preview-actions {
     display: flex;
     gap: 15px;
+    align-items: center;
+}
+
+.preview-actions button {
+    white-space: nowrap;
 }
 
 .cv-preview-wrapper {
@@ -464,4 +472,36 @@ header h1 {
 /* Smooth scrolling */
 html {
     scroll-behavior: smooth;
+}
+
+/* Floating action buttons (backup if header is hidden) */
+.floating-actions {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.floating-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.floating-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6);
 }

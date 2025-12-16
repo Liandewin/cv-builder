@@ -152,12 +152,12 @@ function collectCertifications() {
     return certifications;
 }
 
-// Format date from YYYY-MM to readable format
+// Format date from YYYY-MM-DD to readable format
 function formatDate(dateString) {
     if (!dateString) return '';
-    const [year, month] = dateString.split('-');
+    const [year, month, day] = dateString.split('-');
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    return `${months[parseInt(month) - 1]} ${year}`;
+    return `${months[parseInt(month) - 1]} ${day}, ${year}`;
 }
 
 // Add work experience entry
@@ -184,11 +184,11 @@ function addWorkExperience() {
             </div>
             <div class="form-group">
                 <label>Start Date *</label>
-                <input type="month" name="work_start_${workExperienceCount}" required>
+                <input type="date" name="work_start_${workExperienceCount}" required>
             </div>
             <div class="form-group">
                 <label>End Date</label>
-                <input type="month" name="work_end_${workExperienceCount}">
+                <input type="date" name="work_end_${workExperienceCount}">
             </div>
             <div class="form-group checkbox-group">
                 <label>
@@ -235,11 +235,11 @@ function addEducation() {
             </div>
             <div class="form-group">
                 <label>Start Date</label>
-                <input type="month" name="edu_start_${educationCount}">
+                <input type="date" name="edu_start_${educationCount}">
             </div>
             <div class="form-group">
                 <label>End Date</label>
-                <input type="month" name="edu_end_${educationCount}">
+                <input type="date" name="edu_end_${educationCount}">
             </div>
             <div class="form-group">
                 <label>GPA (optional)</label>
@@ -273,7 +273,7 @@ function addCertification() {
             </div>
             <div class="form-group">
                 <label>Date Obtained</label>
-                <input type="month" name="cert_date_${certificationCount}">
+                <input type="date" name="cert_date_${certificationCount}">
             </div>
         </div>
         <button type="button" class="remove-btn" onclick="removeItem(this)">Remove Certification</button>
