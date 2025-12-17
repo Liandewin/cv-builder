@@ -10,7 +10,7 @@ document.getElementById('cvForm').addEventListener('submit', function(e) {
     // Collect form data
     const formData = collectFormData();
     
-    // Send to preview
+    // Send data to server first (to store in session)
     fetch('/preview', {
         method: 'POST',
         headers: {
@@ -18,12 +18,14 @@ document.getElementById('cvForm').addEventListener('submit', function(e) {
         },
         body: JSON.stringify(formData)
     })
-    .then(response => response.text())
-    .then(html => {
-        // Open preview in new window or redirect
-        document.open();
-        document.write(html);
-        document.close();
+    .then(response => {
+        if (response.ok) {
+            // Now navigate to preview page (GET request)
+            // This creates proper browser history so back button works
+            window.location.href = '/preview';
+        } else {
+            throw new Error('Server error');
+        }
     })
     .catch(error => {
         console.error('Error:', error);

@@ -1,9 +1,8 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>CV - {{ cv_data.personal_info.name }}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* PDF-optimized styles */
         * {
@@ -22,6 +21,8 @@
             font-size: 11pt;
             line-height: 1.5;
             color: #333;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
 
         .cv-container {
@@ -35,24 +36,29 @@
             margin-bottom: 30px;
             border-bottom: 2px solid #2c3e50;
             padding-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
 
         .cv-name {
             font-size: 28pt;
             font-weight: bold;
-            color: #2c3e50;
+            color: white;
             margin-bottom: 5px;
         }
 
         .cv-title {
             font-size: 14pt;
-            color: #555;
+            color: rgba(255, 255, 255, 0.95);
             margin-bottom: 15px;
         }
 
         .cv-contact {
             font-size: 10pt;
-            color: #666;
+            color: rgba(255, 255, 255, 0.9);
         }
 
         .cv-contact span {
@@ -60,10 +66,6 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
-        }
-        
-        .cv-contact i {
-            color: rgba(255, 255, 255, 0.9);
         }
 
         /* Sections */
@@ -156,6 +158,8 @@
             border-radius: 3px;
             font-size: 9pt;
             display: inline-block;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
 
         .gpa {
@@ -169,6 +173,11 @@
             color: #3498db;
             text-decoration: none;
         }
+        
+        .cv-contact a {
+            color: white;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -179,16 +188,16 @@
             <h2 class="cv-title">{{ cv_data.personal_info.title }}</h2>
             
             <div class="cv-contact">
-                <span><i class="fas fa-envelope"></i> {{ cv_data.personal_info.email }}</span>
-                <span><i class="fas fa-phone"></i> {{ cv_data.personal_info.phone }}</span>
+                <span>✉ {{ cv_data.personal_info.email }}</span>
+                <span>☎ {{ cv_data.personal_info.phone }}</span>
                 {% if cv_data.personal_info.address.city %}
-                <span><i class="fas fa-map-marker-alt"></i> {{ cv_data.personal_info.address.city }}{% if cv_data.personal_info.address.country %}, {{ cv_data.personal_info.address.country }}{% endif %}</span>
+                <span>📍 {{ cv_data.personal_info.address.city }}{% if cv_data.personal_info.address.country %}, {{ cv_data.personal_info.address.country }}{% endif %}</span>
                 {% endif %}
                 {% if cv_data.personal_info.linkedin %}
-                <span><i class="fab fa-linkedin"></i> <a href="{{ cv_data.personal_info.linkedin }}">LinkedIn</a></span>
+                <span>🔗 <a href="{{ cv_data.personal_info.linkedin }}">LinkedIn</a></span>
                 {% endif %}
                 {% if cv_data.personal_info.website %}
-                <span><i class="fas fa-globe"></i> <a href="{{ cv_data.personal_info.website }}">Website</a></span>
+                <span>🌐 <a href="{{ cv_data.personal_info.website }}">Website</a></span>
                 {% endif %}
             </div>
         </div>

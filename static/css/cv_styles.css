@@ -292,13 +292,14 @@
 .certification-item::before {
     content: '🏆';
     position: absolute;
-    left: -8px;
+    left: -30px;
     top: 25px;
-    font-size: 1.2em;
+    font-size: 1.3em;
 }
 
 .certification-item {
     border-left-color: #27ae60;
+    padding-left: 30px;
 }
 
 /* Responsive Design for CV */

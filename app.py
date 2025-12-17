@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, send_file
+from flask import Flask, render_template, request, jsonify, send_file, session
 from weasyprint import HTML
 from datetime import datetime
 import json
@@ -6,6 +6,7 @@ import os
 from io import BytesIO
 
 app = Flask(__name__)
+app.secret_key = 'your-secret-key-change-this-in-production'  # Required for sessions
 
 # Route for the main page (form input)
 @app.route('/')
@@ -14,18 +15,20 @@ def index():
     return render_template('index.html')
 
 # Route to handle form submission and show preview
-@app.route('/preview', methods=['POST'])
+@app.route('/preview', methods=['GET', 'POST'])
 def preview():
     """
     Receive CV data from the form and display a preview
     """
-    # Get JSON data from the request
-    cv_data = request.get_json()
+    if request.method == 'POST':
+        # Get JSON data from the request
+        cv_data = request.get_json()
+        # Store in Flask session
+        session['cv_data'] = cv_data
+    else:
+        # For GET request, retrieve from session
+        cv_data = session.get('cv_data', {})
     
-    # Validate the data against schema (optional but recommended)
-    # For now, we'll just pass it to the template
-    
-    # Store in session or pass directly to template
     return render_template('preview.html', cv_data=cv_data)
 
 # Route to generate and download PDF
@@ -35,8 +38,10 @@ def generate_pdf():
     Generate a PDF from the CV data
     """
     try:
-        # Get CV data from request
+        # Try to get CV data from request, fallback to session
         cv_data = request.get_json()
+        if not cv_data:
+            cv_data = session.get('cv_data', {})
         
         # Render the CV template with the data
         rendered_html = render_template('cv_template.html', cv_data=cv_data)
@@ -56,6 +61,13 @@ def generate_pdf():
         )
     
     except Exception as e:
+        # Print full error to console for debugging
+        import traceback
+        print("=" * 50)
+        print("PDF GENERATION ERROR:")
+        print("=" * 50)
+        traceback.print_exc()
+        print("=" * 50)
         return jsonify({'error': str(e)}), 500
 
 # Route to validate CV data against schema
@@ -102,4 +114,4 @@ def get_schema():
 
 if __name__ == '__main__':
     # Run the Flask app in debug mode
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5001)
