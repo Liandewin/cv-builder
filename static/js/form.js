@@ -30,6 +30,12 @@ function renumberItems(containerSelector, prefix) {
 document.getElementById('cvForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
+    // Show loading state
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+    
     // Collect form data
     const formData = collectFormData();
     
@@ -53,6 +59,10 @@ document.getElementById('cvForm').addEventListener('submit', function(e) {
     .catch(error => {
         console.error('Error:', error);
         alert('Error submitting form. Please try again.');
+        
+        // Restore button state
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
     });
 });
 

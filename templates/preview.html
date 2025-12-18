@@ -170,6 +170,12 @@
         const cvData = {{ cv_data | tojson | safe }};
 
         function generatePDF() {
+            // Show loading state
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating PDF...';
+            
             fetch('/generate-pdf', {
                 method: 'POST',
                 headers: {
@@ -188,10 +194,18 @@
                 a.click();
                 window.URL.revokeObjectURL(url);
                 a.remove();
+                
+                // Restore button state
+                button.disabled = false;
+                button.innerHTML = originalText;
             })
             .catch(error => {
                 console.error('Error generating PDF:', error);
                 alert('Error generating PDF. Please try again.');
+                
+                // Restore button state
+                button.disabled = false;
+                button.innerHTML = originalText;
             });
         }
     </script>
