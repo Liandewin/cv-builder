@@ -107,7 +107,7 @@
                                 <textarea name="work_responsibilities_0" rows="4" placeholder="• Managed team of 5 developers&#10;• Led project delivery&#10;• Improved system performance"></textarea>
                             </div>
                         </div>
-                        <button type="button" class="remove-btn" onclick="removeItem(this)">Remove Job</button>
+                        <button type="button" class="remove-btn" onclick="removeItem(this, 'work')">Remove Job</button>
                     </div>
                 </div>
                 <button type="button" class="add-btn" onclick="addWorkExperience()">+ Add Another Job</button>
@@ -149,7 +149,7 @@
                                 <input type="text" name="edu_gpa_0" placeholder="e.g. 3.8/4.0">
                             </div>
                         </div>
-                        <button type="button" class="remove-btn" onclick="removeItem(this)">Remove Education</button>
+                        <button type="button" class="remove-btn" onclick="removeItem(this, 'education')">Remove Education</button>
                     </div>
                 </div>
                 <button type="button" class="add-btn" onclick="addEducation()">+ Add Another Education</button>
@@ -190,7 +190,7 @@
                                 <input type="date" name="cert_date_0">
                             </div>
                         </div>
-                        <button type="button" class="remove-btn" onclick="removeItem(this)">Remove Certification</button>
+                        <button type="button" class="remove-btn" onclick="removeItem(this, 'certification')">Remove Certification</button>
                     </div>
                 </div>
                 <button type="button" class="add-btn" onclick="addCertification()">+ Add Another Certification</button>

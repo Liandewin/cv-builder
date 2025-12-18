@@ -3,6 +3,29 @@ let workExperienceCount = 1;
 let educationCount = 1;
 let certificationCount = 1;
 
+// Function to renumber items after removal
+function renumberItems(containerSelector, prefix) {
+    const items = document.querySelectorAll(`${containerSelector} .repeatable-item`);
+    items.forEach((item, index) => {
+        const heading = item.querySelector('h3');
+        if (heading) {
+            heading.textContent = `${prefix} #${index + 1}`;
+        }
+        item.setAttribute('data-index', index);
+        
+        // Update all input names within this item
+        const inputs = item.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            const name = input.getAttribute('name');
+            if (name) {
+                // Replace the old index with new index
+                const newName = name.replace(/_\d+$/, `_${index}`);
+                input.setAttribute('name', newName);
+            }
+        });
+    });
+}
+
 // Handle form submission
 document.getElementById('cvForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -165,128 +188,143 @@ function formatDate(dateString) {
 // Add work experience entry
 function addWorkExperience() {
     const container = document.getElementById('workExperienceContainer');
+    const currentCount = container.querySelectorAll('.repeatable-item').length;
+    const newIndex = currentCount;
+    
     const newItem = document.createElement('div');
     newItem.className = 'repeatable-item';
-    newItem.setAttribute('data-index', workExperienceCount);
+    newItem.setAttribute('data-index', newIndex);
     
     newItem.innerHTML = `
-        <h3>Job #${workExperienceCount + 1}</h3>
+        <h3>Job #${currentCount + 1}</h3>
         <div class="form-grid">
             <div class="form-group">
                 <label>Job Title *</label>
-                <input type="text" name="work_title_${workExperienceCount}" required>
+                <input type="text" name="work_title_${newIndex}" required>
             </div>
             <div class="form-group">
                 <label>Company *</label>
-                <input type="text" name="work_company_${workExperienceCount}" required>
+                <input type="text" name="work_company_${newIndex}" required>
             </div>
             <div class="form-group">
                 <label>Location</label>
-                <input type="text" name="work_location_${workExperienceCount}" placeholder="City, Country">
+                <input type="text" name="work_location_${newIndex}" placeholder="City, Country">
             </div>
             <div class="form-group">
                 <label>Start Date *</label>
-                <input type="date" name="work_start_${workExperienceCount}" required>
+                <input type="date" name="work_start_${newIndex}" required>
             </div>
             <div class="form-group">
                 <label>End Date</label>
-                <input type="date" name="work_end_${workExperienceCount}">
+                <input type="date" name="work_end_${newIndex}">
             </div>
             <div class="form-group checkbox-group">
                 <label>
-                    <input type="checkbox" name="work_current_${workExperienceCount}"> Currently working here
+                    <input type="checkbox" name="work_current_${newIndex}"> Currently working here
                 </label>
             </div>
             <div class="form-group full-width">
                 <label>Key Responsibilities (one per line)</label>
-                <textarea name="work_responsibilities_${workExperienceCount}" rows="4" placeholder="• Managed team of 5 developers&#10;• Led project delivery&#10;• Improved system performance"></textarea>
+                <textarea name="work_responsibilities_${newIndex}" rows="4" placeholder="• Managed team of 5 developers&#10;• Led project delivery&#10;• Improved system performance"></textarea>
             </div>
         </div>
-        <button type="button" class="remove-btn" onclick="removeItem(this)">Remove Job</button>
+        <button type="button" class="remove-btn" onclick="removeItem(this, 'work')">Remove Job</button>
     `;
     
     container.appendChild(newItem);
-    workExperienceCount++;
 }
 
 // Add education entry
 function addEducation() {
     const container = document.getElementById('educationContainer');
+    const currentCount = container.querySelectorAll('.repeatable-item').length;
+    const newIndex = currentCount;
+    
     const newItem = document.createElement('div');
     newItem.className = 'repeatable-item';
-    newItem.setAttribute('data-index', educationCount);
+    newItem.setAttribute('data-index', newIndex);
     
     newItem.innerHTML = `
-        <h3>Education #${educationCount + 1}</h3>
+        <h3>Education #${currentCount + 1}</h3>
         <div class="form-grid">
             <div class="form-group">
                 <label>Degree *</label>
-                <input type="text" name="edu_degree_${educationCount}" placeholder="e.g. Bachelor of Science" required>
+                <input type="text" name="edu_degree_${newIndex}" placeholder="e.g. Bachelor of Science" required>
             </div>
             <div class="form-group">
                 <label>Field of Study *</label>
-                <input type="text" name="edu_field_${educationCount}" placeholder="e.g. Computer Science" required>
+                <input type="text" name="edu_field_${newIndex}" placeholder="e.g. Computer Science" required>
             </div>
             <div class="form-group full-width">
                 <label>Institution *</label>
-                <input type="text" name="edu_institution_${educationCount}" required>
+                <input type="text" name="edu_institution_${newIndex}" required>
             </div>
             <div class="form-group">
                 <label>Location</label>
-                <input type="text" name="edu_location_${educationCount}">
+                <input type="text" name="edu_location_${newIndex}">
             </div>
             <div class="form-group">
                 <label>Start Date</label>
-                <input type="date" name="edu_start_${educationCount}">
+                <input type="date" name="edu_start_${newIndex}">
             </div>
             <div class="form-group">
                 <label>End Date</label>
-                <input type="date" name="edu_end_${educationCount}">
+                <input type="date" name="edu_end_${newIndex}">
             </div>
             <div class="form-group">
                 <label>GPA (optional)</label>
-                <input type="text" name="edu_gpa_${educationCount}" placeholder="e.g. 3.8/4.0">
+                <input type="text" name="edu_gpa_${newIndex}" placeholder="e.g. 3.8/4.0">
             </div>
         </div>
-        <button type="button" class="remove-btn" onclick="removeItem(this)">Remove Education</button>
+        <button type="button" class="remove-btn" onclick="removeItem(this, 'education')">Remove Education</button>
     `;
     
     container.appendChild(newItem);
-    educationCount++;
 }
 
 // Add certification entry
 function addCertification() {
     const container = document.getElementById('certificationsContainer');
+    const currentCount = container.querySelectorAll('.repeatable-item').length;
+    const newIndex = currentCount;
+    
     const newItem = document.createElement('div');
     newItem.className = 'repeatable-item';
-    newItem.setAttribute('data-index', certificationCount);
+    newItem.setAttribute('data-index', newIndex);
     
     newItem.innerHTML = `
-        <h3>Certification #${certificationCount + 1}</h3>
+        <h3>Certification #${currentCount + 1}</h3>
         <div class="form-grid">
             <div class="form-group">
                 <label>Certification Name</label>
-                <input type="text" name="cert_name_${certificationCount}" placeholder="e.g. AWS Solutions Architect">
+                <input type="text" name="cert_name_${newIndex}" placeholder="e.g. AWS Solutions Architect">
             </div>
             <div class="form-group">
                 <label>Issuing Organization</label>
-                <input type="text" name="cert_org_${certificationCount}" placeholder="e.g. Amazon Web Services">
+                <input type="text" name="cert_org_${newIndex}" placeholder="e.g. Amazon Web Services">
             </div>
             <div class="form-group">
                 <label>Date Obtained</label>
-                <input type="date" name="cert_date_${certificationCount}">
+                <input type="date" name="cert_date_${newIndex}">
             </div>
         </div>
-        <button type="button" class="remove-btn" onclick="removeItem(this)">Remove Certification</button>
+        <button type="button" class="remove-btn" onclick="removeItem(this, 'certification')">Remove Certification</button>
     `;
     
     container.appendChild(newItem);
-    certificationCount++;
 }
 
 // Remove a repeatable item
-function removeItem(button) {
+function removeItem(button, type) {
     const item = button.closest('.repeatable-item');
     item.remove();
+    
+    // Renumber remaining items based on type
+    if (type === 'work') {
+        renumberItems('#workExperienceContainer', 'Job');
+    } else if (type === 'education') {
+        renumberItems('#educationContainer', 'Education');
+    } else if (type === 'certification') {
+        renumberItems('#certificationsContainer', 'Certification');
+    }
 }
