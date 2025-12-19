@@ -8,14 +8,19 @@
     box-sizing: border-box;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
-    padding: 40px 20px;
+    padding: 20px 10px;
     color: #333;
     position: relative;
     overflow-x: hidden;
+    width: 100%;
 }
 
 /* Animated background */
@@ -48,6 +53,8 @@ body::before {
     position: relative;
     z-index: 1;
     animation: fadeInUp 0.6s ease-out;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 @keyframes fadeInUp {
@@ -101,6 +108,8 @@ header h1 {
     border-left: 5px solid #667eea;
     transition: all 0.3s ease;
     animation: slideIn 0.5s ease-out backwards;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .form-section:nth-child(1) { animation-delay: 0.1s; }
@@ -146,11 +155,14 @@ header h1 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 25px;
+    width: 100%;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    min-width: 0; /* Prevents overflow */
 }
 
 .form-group.full-width {
@@ -180,6 +192,8 @@ header h1 {
     font-family: 'Poppins', sans-serif;
     transition: all 0.3s ease;
     background: white;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .form-group input:focus,
@@ -231,6 +245,8 @@ header h1 {
     border: 2px solid #e9ecef;
     position: relative;
     transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .repeatable-item:hover {
@@ -430,29 +446,82 @@ header h1 {
 /* Responsive Design */
 @media (max-width: 768px) {
     body {
-        padding: 20px 10px;
+        padding: 10px 5px;
     }
     
     .container {
-        padding: 30px 20px;
+        padding: 20px 15px;
+        border-radius: 15px;
     }
     
     .form-grid {
         grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    header {
+        margin-bottom: 30px;
+        padding-bottom: 20px;
     }
     
     header h1 {
-        font-size: 2em;
+        font-size: 1.8em;
+    }
+    
+    .subtitle {
+        font-size: 1em;
     }
     
     .form-section {
-        padding: 20px;
+        padding: 20px 15px;
+        margin-bottom: 25px;
+    }
+    
+    .form-section h2 {
+        font-size: 1.4em;
+    }
+    
+    .repeatable-item {
+        padding: 15px;
+    }
+    
+    .repeatable-item h3 {
+        font-size: 1.1em;
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 12px 15px;
+    }
+    
+    .form-group label {
+        font-size: 0.9em;
+    }
+    
+    .primary-btn,
+    .secondary-btn,
+    .add-btn,
+    .remove-btn {
+        padding: 12px 25px;
+        font-size: 0.95em;
+    }
+    
+    .form-actions .primary-btn {
+        padding: 15px 40px;
+        font-size: 1.1em;
+        width: 100%;
     }
     
     .preview-header {
         flex-direction: column;
-        gap: 20px;
-        padding: 20px;
+        gap: 15px;
+        padding: 20px 15px;
+    }
+    
+    .preview-header h1 {
+        font-size: 1.5em;
     }
     
     .preview-actions {
@@ -465,13 +534,82 @@ header h1 {
     }
     
     .cv-preview-wrapper {
-        padding: 30px 20px;
+        padding: 20px 15px;
+    }
+    
+    .floating-actions {
+        bottom: 20px;
+        right: 20px;
+        gap: 12px;
+    }
+    
+    .floating-btn {
+        width: 55px;
+        height: 55px;
+        font-size: 20px;
     }
 }
 
 /* Smooth scrolling */
 html {
     scroll-behavior: smooth;
+}
+
+/* Very small phones */
+@media (max-width: 480px) {
+    body {
+        padding: 10px 5px;
+    }
+    
+    .container {
+        padding: 15px 10px;
+        border-radius: 10px;
+    }
+    
+    header h1 {
+        font-size: 1.5em;
+    }
+    
+    .subtitle {
+        font-size: 0.9em;
+    }
+    
+    .form-section {
+        padding: 15px 10px;
+        border-left-width: 3px;
+    }
+    
+    .form-section h2 {
+        font-size: 1.2em;
+        gap: 10px;
+    }
+    
+    .form-section h2 i {
+        font-size: 0.8em;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        font-size: 16px;
+        padding: 10px 12px;
+    }
+    
+    .repeatable-item {
+        padding: 12px;
+    }
+    
+    .primary-btn,
+    .add-btn,
+    .remove-btn {
+        font-size: 0.9em;
+        padding: 10px 20px;
+    }
+}
+
+/* Prevent any element from causing horizontal scroll */
+img, video, iframe {
+    max-width: 100%;
+    height: auto;
 }
 
 /* Floating action buttons (backup if header is hidden) */

@@ -304,47 +304,91 @@
 
 /* Responsive Design for CV */
 @media (max-width: 768px) {
+    .cv-document {
+        padding: 0;
+    }
+    
+    .cv-header {
+        padding: 25px 15px 20px;
+        border-radius: 0 0 20px 20px;
+    }
+    
     .cv-name {
-        font-size: 2em;
+        font-size: 1.8em;
     }
     
     .cv-title {
-        font-size: 1.2em;
+        font-size: 1.1em;
     }
     
     .cv-contact {
         flex-direction: column;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
     }
     
     .cv-contact span {
-        width: 100%;
+        width: auto;
+        max-width: 100%;
         justify-content: center;
+        font-size: 0.85em;
+        padding: 6px 12px;
+    }
+    
+    .cv-section {
+        margin-bottom: 25px;
+    }
+    
+    .section-title {
+        font-size: 1.3em;
+    }
+    
+    .summary-text {
+        padding: 15px;
+        font-size: 1em;
     }
     
     .item-header {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
+        align-items: flex-start;
+    }
+    
+    .item-title {
+        font-size: 1.1em;
+    }
+    
+    .item-subtitle {
+        font-size: 0.95em;
     }
     
     .item-date {
         align-self: flex-start;
-    }
-    
-    .skills-list {
-        gap: 10px;
-    }
-    
-    .skill-tag {
         font-size: 0.85em;
-        padding: 8px 16px;
     }
     
     .experience-item,
     .education-item,
     .certification-item {
-        padding: 20px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .responsibilities-list {
+        margin-left: 15px;
+    }
+    
+    .responsibilities-list li {
+        font-size: 0.95em;
+    }
+    
+    .skills-list {
+        gap: 8px;
+    }
+    
+    .skill-tag {
+        font-size: 0.85em;
+        padding: 8px 14px;
     }
 }
 
