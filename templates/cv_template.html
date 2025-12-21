@@ -30,6 +30,103 @@
             margin: 0 auto;
         }
 
+        /* Template-specific styles */
+        .template-modern .cv-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
+        .template-classic {
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+        
+        .template-classic .cv-header {
+            background: #2c3e50;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
+        .template-classic .section-title {
+            border-bottom: 3px double #2c3e50;
+        }
+        
+        .template-classic .skill-tag {
+            background: #2c3e50 !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
+        .template-minimal .cv-header {
+            background: white;
+            border-bottom: 1px solid #2c3e50;
+            text-align: left;
+        }
+        
+        .template-minimal .cv-name {
+            font-weight: 300;
+            color: #2c3e50;
+        }
+        
+        .template-minimal .cv-title,
+        .template-minimal .cv-contact {
+            color: #7f8c8d;
+        }
+        
+        .template-minimal .section-title {
+            font-weight: 300;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .template-minimal .skill-tag {
+            background: white !important;
+            color: #2c3e50 !important;
+            border: 1px solid #e9ecef;
+        }
+        
+        .template-professional .cv-header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
+        .template-professional .section-title {
+            color: #1e3a8a;
+            border-bottom: 3px solid #3b82f6;
+        }
+        
+        .template-professional .skill-tag {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%) !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
+        .template-ats .cv-header {
+            background: white;
+            border-bottom: 2px solid #2c3e50;
+            text-align: left;
+        }
+        
+        .template-ats .cv-name {
+            color: #000;
+        }
+        
+        .template-ats .cv-title,
+        .template-ats .cv-contact {
+            color: #333;
+        }
+        
+        .template-ats .section-title {
+            color: #000;
+            border-bottom: 1px solid #000;
+        }
+        
+        .template-ats .skill-tag {
+            background: white !important;
+            color: #000 !important;
+            border: 1px solid #000;
+        }
+
         /* Header */
         .cv-header {
             text-align: center;
@@ -181,7 +278,7 @@
     </style>
 </head>
 <body>
-    <div class="cv-container">
+    <div class="cv-container template-{{ template }}">
         <!-- Header -->
         <div class="cv-header">
             <h1 class="cv-name">{{ cv_data.personal_info.name }}</h1>

@@ -10,6 +10,7 @@
     margin: 0 auto;
     background: white;
     animation: fadeIn 0.8s ease-out;
+    transition: all 0.3s ease;
 }
 
 @keyframes fadeIn {
@@ -17,7 +18,413 @@
     to { opacity: 1; }
 }
 
-/* CV Header */
+/* =========================
+   TEMPLATE: MODERN (Default)
+   ========================= */
+.cv-document.template-modern .cv-header {
+    text-align: center;
+    padding: 40px 0 35px;
+    margin-bottom: 35px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 0 0 30px 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cv-document.template-modern .cv-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+.cv-document.template-modern .cv-name {
+    font-size: 2.8em;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 10px;
+    position: relative;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cv-document.template-modern .cv-title {
+    font-size: 1.4em;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 400;
+    margin-bottom: 20px;
+    position: relative;
+    letter-spacing: 0.5px;
+}
+
+.cv-document.template-modern .cv-contact {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    font-size: 0.95em;
+    color: rgba(255, 255, 255, 0.9);
+    position: relative;
+}
+
+.cv-document.template-modern .cv-contact span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px 16px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.cv-document.template-modern .section-title {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #667eea;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.cv-document.template-modern .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 2px;
+}
+
+.cv-document.template-modern .skill-tag {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.95em;
+    font-weight: 500;
+    display: inline-block;
+    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+}
+
+/* =========================
+   TEMPLATE: CLASSIC
+   ========================= */
+.cv-document.template-classic {
+    font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.cv-document.template-classic .cv-header {
+    text-align: center;
+    padding: 30px 0;
+    margin-bottom: 30px;
+    background: #2c3e50;
+    color: white;
+}
+
+.cv-document.template-classic .cv-name {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+}
+
+.cv-document.template-classic .cv-title {
+    font-size: 1.2em;
+    color: rgba(255, 255, 255, 0.9);
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+.cv-document.template-classic .cv-contact {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.cv-document.template-classic .cv-contact span {
+    padding: 5px 12px;
+}
+
+.cv-document.template-classic .section-title {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #2c3e50;
+    border-bottom: 3px double #2c3e50;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cv-document.template-classic .experience-item,
+.cv-document.template-classic .education-item {
+    background: transparent;
+    border-left: 3px solid #2c3e50;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.cv-document.template-classic .skill-tag {
+    background: #2c3e50;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+/* =========================
+   TEMPLATE: MINIMAL
+   ========================= */
+.cv-document.template-minimal {
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+}
+
+.cv-document.template-minimal .cv-header {
+    text-align: left;
+    padding: 40px 0 30px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #2c3e50;
+    background: transparent;
+}
+
+.cv-document.template-minimal .cv-name {
+    font-size: 3em;
+    font-weight: 300;
+    color: #2c3e50;
+    margin-bottom: 5px;
+    letter-spacing: -1px;
+}
+
+.cv-document.template-minimal .cv-title {
+    font-size: 1.2em;
+    color: #7f8c8d;
+    font-weight: 300;
+    margin-bottom: 20px;
+}
+
+.cv-document.template-minimal .cv-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 0.9em;
+    color: #7f8c8d;
+    justify-content: flex-start;
+}
+
+.cv-document.template-minimal .cv-contact span {
+    background: transparent;
+    padding: 0;
+}
+
+.cv-document.template-minimal .section-title {
+    font-size: 1.3em;
+    font-weight: 300;
+    color: #2c3e50;
+    padding-bottom: 5px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #e9ecef;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.cv-document.template-minimal .section-title::after {
+    display: none;
+}
+
+.cv-document.template-minimal .experience-item,
+.cv-document.template-minimal .education-item {
+    background: transparent;
+    border: none;
+    padding: 20px 0;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #f8f9fa;
+}
+
+.cv-document.template-minimal .experience-item::before,
+.cv-document.template-minimal .education-item::before {
+    display: none;
+}
+
+.cv-document.template-minimal .skill-tag {
+    background: white;
+    color: #2c3e50;
+    border: 1px solid #e9ecef;
+    padding: 8px 16px;
+    border-radius: 4px;
+    box-shadow: none;
+}
+
+/* =========================
+   TEMPLATE: PROFESSIONAL
+   ========================= */
+.cv-document.template-professional .cv-header {
+    text-align: center;
+    padding: 35px 0;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+}
+
+.cv-document.template-professional .cv-name {
+    font-size: 2.6em;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.cv-document.template-professional .cv-title {
+    font-size: 1.3em;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 18px;
+}
+
+.cv-document.template-professional .cv-contact {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.cv-document.template-professional .cv-contact span {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 14px;
+    border-radius: 6px;
+}
+
+.cv-document.template-professional .section-title {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #1e3a8a;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #3b82f6;
+    text-transform: uppercase;
+}
+
+.cv-document.template-professional .section-title::after {
+    display: none;
+}
+
+.cv-document.template-professional .experience-item,
+.cv-document.template-professional .education-item {
+    border-left-color: #3b82f6;
+}
+
+.cv-document.template-professional .skill-tag {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+}
+
+/* =========================
+   TEMPLATE: ATS-FRIENDLY
+   ========================= */
+.cv-document.template-ats {
+    font-family: 'Arial', sans-serif;
+}
+
+.cv-document.template-ats .cv-header {
+    text-align: left;
+    padding: 20px 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #2c3e50;
+    background: white;
+}
+
+.cv-document.template-ats .cv-name {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.cv-document.template-ats .cv-title {
+    font-size: 1.1em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.cv-document.template-ats .cv-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 0.95em;
+    color: #333;
+}
+
+.cv-document.template-ats .cv-contact span {
+    background: transparent;
+    padding: 0;
+    justify-content: flex-start;
+}
+
+.cv-document.template-ats .section-title {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #000;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #000;
+    text-transform: uppercase;
+}
+
+.cv-document.template-ats .section-title::after {
+    display: none;
+}
+
+.cv-document.template-ats .experience-item,
+.cv-document.template-ats .education-item,
+.cv-document.template-ats .certification-item {
+    background: transparent;
+    border: none;
+    padding: 10px 0;
+    margin-bottom: 15px;
+}
+
+.cv-document.template-ats .experience-item::before,
+.cv-document.template-ats .education-item::before,
+.cv-document.template-ats .certification-item::before {
+    display: none;
+}
+
+.cv-document.template-ats .experience-item:hover,
+.cv-document.template-ats .education-item:hover,
+.cv-document.template-ats .certification-item:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.cv-document.template-ats .skill-tag {
+    background: white;
+    color: #000;
+    border: 1px solid #000;
+    padding: 6px 12px;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.cv-document.template-ats .summary-text {
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+/* CV Header (default styles for all templates) */
 .cv-header {
     text-align: center;
     padding: 40px 0 35px;

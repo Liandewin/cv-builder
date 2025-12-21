@@ -18,9 +18,75 @@
             </div>
         </div>
 
+        <!-- Template Selector -->
+        <div class="template-selector">
+            <h3><i class="fas fa-palette"></i> Choose Template</h3>
+            <div class="template-grid">
+                <div class="template-card active" data-template="modern" onclick="switchTemplate('modern')">
+                    <div class="template-preview template-modern">
+                        <div class="preview-header-bar gradient"></div>
+                        <div class="preview-lines">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
+                    <p>Modern</p>
+                </div>
+                
+                <div class="template-card" data-template="classic" onclick="switchTemplate('classic')">
+                    <div class="template-preview template-classic">
+                        <div class="preview-header-bar classic"></div>
+                        <div class="preview-lines">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
+                    <p>Classic</p>
+                </div>
+                
+                <div class="template-card" data-template="minimal" onclick="switchTemplate('minimal')">
+                    <div class="template-preview template-minimal">
+                        <div class="preview-header-bar minimal"></div>
+                        <div class="preview-lines">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
+                    <p>Minimal</p>
+                </div>
+                
+                <div class="template-card" data-template="professional" onclick="switchTemplate('professional')">
+                    <div class="template-preview template-professional">
+                        <div class="preview-header-bar professional"></div>
+                        <div class="preview-lines">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
+                    <p>Professional</p>
+                </div>
+                
+                <div class="template-card" data-template="ats" onclick="switchTemplate('ats')">
+                    <div class="template-preview template-ats">
+                        <div class="preview-header-bar ats"></div>
+                        <div class="preview-lines">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
+                    <p>ATS-Friendly</p>
+                </div>
+            </div>
+        </div>
+
         <!-- CV Preview Display -->
         <div class="cv-preview-wrapper">
-            <div class="cv-document">
+            <div class="cv-document template-modern" id="cvDocument">
                 <!-- Header Section -->
                 <div class="cv-header">
                     <h1 class="cv-name">{{ cv_data.personal_info.name }}</h1>
@@ -168,6 +234,33 @@
     <script>
         // Store CV data for PDF generation
         const cvData = {{ cv_data | tojson | safe }};
+        let selectedTemplate = 'modern'; // Default template
+
+        // Switch template
+        function switchTemplate(template) {
+            selectedTemplate = template;
+            
+            // Update CV document class
+            const cvDoc = document.getElementById('cvDocument');
+            cvDoc.className = `cv-document template-${template}`;
+            
+            // Update active card
+            document.querySelectorAll('.template-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            document.querySelector(`[data-template="${template}"]`).classList.add('active');
+            
+            // Save preference to session
+            sessionStorage.setItem('selectedTemplate', template);
+        }
+        
+        // Load saved template preference
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTemplate = sessionStorage.getItem('selectedTemplate');
+            if (savedTemplate) {
+                switchTemplate(savedTemplate);
+            }
+        });
 
         function generatePDF() {
             // Show loading state
@@ -181,7 +274,10 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(cvData)
+                body: JSON.stringify({
+                    cv_data: cvData,
+                    template: selectedTemplate
+                })
             })
             .then(response => response.blob())
             .then(blob => {

@@ -38,13 +38,20 @@ def generate_pdf():
     Generate a PDF from the CV data
     """
     try:
-        # Try to get CV data from request, fallback to session
-        cv_data = request.get_json()
-        if not cv_data:
-            cv_data = session.get('cv_data', {})
+        # Get data from request
+        request_data = request.get_json()
         
-        # Render the CV template with the data
-        rendered_html = render_template('cv_template.html', cv_data=cv_data)
+        # Extract CV data and template
+        if isinstance(request_data, dict) and 'cv_data' in request_data:
+            cv_data = request_data['cv_data']
+            template = request_data.get('template', 'modern')
+        else:
+            # Fallback for old format or session data
+            cv_data = request_data or session.get('cv_data', {})
+            template = 'modern'
+        
+        # Render the CV template with the data and template selection
+        rendered_html = render_template('cv_template.html', cv_data=cv_data, template=template)
         
         # Convert HTML to PDF using WeasyPrint
         pdf_file = HTML(string=rendered_html).write_pdf()
