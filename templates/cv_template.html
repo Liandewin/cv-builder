@@ -37,6 +37,13 @@
             print-color-adjust: exact;
         }
         
+        .template-modern .skill-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            color: white !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
         .template-classic {
             font-family: 'Georgia', 'Times New Roman', serif;
         }
@@ -53,6 +60,7 @@
         
         .template-classic .skill-tag {
             background: #2c3e50 !important;
+            color: white !important;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
@@ -84,6 +92,11 @@
             border: 1px solid #e9ecef;
         }
         
+        .template-minimal .cv-contact a {
+            color: #667eea !important;
+            text-decoration: underline;
+        }
+        
         .template-professional .cv-header {
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
             -webkit-print-color-adjust: exact;
@@ -97,6 +110,7 @@
         
         .template-professional .skill-tag {
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%) !important;
+            color: white !important;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
@@ -125,6 +139,11 @@
             background: white !important;
             color: #000 !important;
             border: 1px solid #000;
+        }
+        
+        .template-ats .cv-contact a {
+            color: #0066cc !important;
+            text-decoration: underline;
         }
 
         /* Header */
@@ -233,19 +252,20 @@
 
         /* Skills */
         .skills-group {
-            margin-bottom: 12px;
+            margin-bottom: 20px;
         }
 
         .skills-group strong {
             color: #2c3e50;
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            font-size: 10pt;
         }
 
         .skills-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
         }
 
         .skill-tag {
@@ -257,6 +277,7 @@
             display: inline-block;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
+            margin: 4px;
         }
 
         .gpa {

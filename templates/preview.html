@@ -264,10 +264,10 @@
 
         function generatePDF() {
             // Show loading state
-            const button = event.target;
-            const originalText = button.innerHTML;
+            const button = event.target.closest('button');
+            const originalHTML = button.innerHTML;
             button.disabled = true;
-            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating PDF...';
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
             
             fetch('/generate-pdf', {
                 method: 'POST',
@@ -293,7 +293,7 @@
                 
                 // Restore button state
                 button.disabled = false;
-                button.innerHTML = originalText;
+                button.innerHTML = originalHTML;
             })
             .catch(error => {
                 console.error('Error generating PDF:', error);
@@ -301,7 +301,7 @@
                 
                 // Restore button state
                 button.disabled = false;
-                button.innerHTML = originalText;
+                button.innerHTML = originalHTML;
             });
         }
     </script>

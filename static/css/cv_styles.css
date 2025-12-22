@@ -229,6 +229,11 @@
     padding: 0;
 }
 
+.cv-document.template-minimal .cv-contact a {
+    color: #667eea;
+    text-decoration: underline;
+}
+
 .cv-document.template-minimal .section-title {
     font-size: 1.3em;
     font-weight: 300;
@@ -371,6 +376,11 @@
     background: transparent;
     padding: 0;
     justify-content: flex-start;
+}
+
+.cv-document.template-ats .cv-contact a {
+    color: #0066cc;
+    text-decoration: underline;
 }
 
 .cv-document.template-ats .section-title {
@@ -676,6 +686,7 @@
     display: inline-block;
     box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
     transition: all 0.3s ease;
+    margin: 2px;
 }
 
 .skill-tag:hover {
