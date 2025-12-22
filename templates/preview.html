@@ -263,11 +263,19 @@
         });
 
         function generatePDF() {
-            // Show loading state
+            // Show loading state - detect which button was clicked
             const button = event.target.closest('button');
             const originalHTML = button.innerHTML;
             button.disabled = true;
-            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+            
+            // Check if it's the floating button (just icon) or header button (has text)
+            if (button.classList.contains('floating-btn')) {
+                // Floating button - just replace icon
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            } else {
+                // Header button - show text with spinner
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+            }
             
             fetch('/generate-pdf', {
                 method: 'POST',
