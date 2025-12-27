@@ -707,13 +707,6 @@
 }
 
 /* Certification Item Specific */
-.certification-item::before {
-    content: '🏆';
-    position: absolute;
-    left: -30px;
-    top: 25px;
-    font-size: 1.3em;
-}
 
 .certification-item {
     border-left-color: #27ae60;
