@@ -4,9 +4,17 @@ from datetime import datetime
 import json
 import os
 from io import BytesIO
+from anthropic import Anthropic
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key-change-this-in-production'  # Required for sessions
+app.secret_key = os.getenv('SECRET_KEY', 'your-secret-key-change-this-in-production')
+
+# Initialize Anthropic client
+anthropic_client = Anthropic(api_key=os.getenv('ANTHROPIC_API_KEY'))
 
 # Route for the main page (form input)
 @app.route('/')
@@ -45,13 +53,15 @@ def generate_pdf():
         if isinstance(request_data, dict) and 'cv_data' in request_data:
             cv_data = request_data['cv_data']
             template = request_data.get('template', 'modern')
+            colors = request_data.get('colors', {'primary': '#667eea', 'accent': '#764ba2'})
         else:
             # Fallback for old format or session data
             cv_data = request_data or session.get('cv_data', {})
             template = 'modern'
+            colors = {'primary': '#667eea', 'accent': '#764ba2'}
         
-        # Render the CV template with the data and template selection
-        rendered_html = render_template('cv_template.html', cv_data=cv_data, template=template)
+        # Render the CV template with the data, template selection, and colors
+        rendered_html = render_template('cv_template.html', cv_data=cv_data, template=template, colors=colors)
         
         # Convert HTML to PDF using WeasyPrint
         pdf_file = HTML(string=rendered_html).write_pdf()
@@ -118,6 +128,192 @@ def get_schema():
         return jsonify(schema)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+# ==========================================
+# AI WRITING ASSISTANT ROUTES
+# ==========================================
+
+@app.route('/ai/generate-summary', methods=['POST'])
+def ai_generate_summary():
+    """Generate professional summary using AI"""
+    try:
+        data = request.get_json()
+        job_title = data.get('job_title', '')
+        experience_years = data.get('experience_years', '')
+        key_skills = data.get('key_skills', '')
+        
+        prompt = f"""Write a professional CV summary for a {job_title} with {experience_years} years of experience. 
+Key skills: {key_skills}
+
+Requirements:
+- 2-3 sentences
+- Professional tone
+- Highlight key achievements and value
+- Use active voice
+- Be specific and impactful
+
+Only return the summary text, no preamble."""
+
+        message = anthropic_client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=300,
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
+        )
+        
+        summary = message.content[0].text
+        return jsonify({'success': True, 'summary': summary})
+    
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/ai/improve-bullet', methods=['POST'])
+def ai_improve_bullet():
+    """Improve a responsibility bullet point using AI"""
+    try:
+        data = request.get_json()
+        bullet = data.get('bullet', '')
+        
+        prompt = f"""Improve this CV responsibility bullet point to make it more professional and impactful:
+
+"{bullet}"
+
+Requirements:
+- Make it more specific and action-oriented
+- Add metrics or quantifiable results if possible (use realistic estimates)
+- Use strong action verbs
+- Keep it concise (1-2 lines)
+- Professional tone
+
+Only return the improved bullet point, no preamble or explanation."""
+
+        message = anthropic_client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=200,
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
+        )
+        
+        improved = message.content[0].text.strip()
+        return jsonify({'success': True, 'improved': improved})
+    
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/ai/suggest-skills', methods=['POST'])
+def ai_suggest_skills():
+    """Suggest relevant skills based on job title"""
+    try:
+        data = request.get_json()
+        job_title = data.get('job_title', '')
+        
+        prompt = f"""Suggest relevant skills for a {job_title} position.
+
+Provide:
+- 8 technical skills
+- 6 soft skills
+
+Format as JSON:
+{{
+  "technical": ["skill1", "skill2", ...],
+  "soft": ["skill1", "skill2", ...]
+}}
+
+Only return the JSON, no preamble."""
+
+        message = anthropic_client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=300,
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
+        )
+        
+        response_text = message.content[0].text.strip()
+        # Remove markdown code blocks if present
+        if response_text.startswith('```'):
+            response_text = response_text.split('```')[1]
+            if response_text.startswith('json'):
+                response_text = response_text[4:]
+            response_text = response_text.strip()
+        
+        skills = json.loads(response_text)
+        return jsonify({'success': True, 'skills': skills})
+    
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/ai/rewrite-tone', methods=['POST'])
+def ai_rewrite_tone():
+    """Rewrite text in different tone"""
+    try:
+        data = request.get_json()
+        text = data.get('text', '')
+        tone = data.get('tone', 'professional')
+        
+        tone_instructions = {
+            'professional': 'more formal and professional',
+            'concise': 'more concise and direct, removing unnecessary words',
+            'action': 'more action-oriented with strong verbs and impact focus'
+        }
+        
+        instruction = tone_instructions.get(tone, 'professional')
+        
+        prompt = f"""Rewrite the following text to be {instruction}:
+
+"{text}"
+
+Only return the rewritten text, no preamble or explanation."""
+
+        message = anthropic_client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=300,
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
+        )
+        
+        rewritten = message.content[0].text.strip()
+        return jsonify({'success': True, 'rewritten': rewritten})
+    
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/ai/check-grammar', methods=['POST'])
+def ai_check_grammar():
+    """Check and fix grammar/spelling"""
+    try:
+        data = request.get_json()
+        text = data.get('text', '')
+        
+        prompt = f"""Check and fix any grammar or spelling errors in this text:
+
+"{text}"
+
+If there are no errors, return the original text.
+Only return the corrected text, no preamble or explanation."""
+
+        message = anthropic_client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=300,
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
+        )
+        
+        corrected = message.content[0].text.strip()
+        has_changes = corrected.lower() != text.lower()
+        
+        return jsonify({
+            'success': True, 
+            'corrected': corrected,
+            'has_changes': has_changes
+        })
+    
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 if __name__ == '__main__':
     # Run the Flask app in debug mode

@@ -236,6 +236,14 @@ function addWorkExperience() {
             <div class="form-group full-width">
                 <label>Key Responsibilities (one per line)</label>
                 <textarea name="work_responsibilities_${newIndex}" rows="4" placeholder="• Managed team of 5 developers&#10;• Led project delivery&#10;• Improved system performance"></textarea>
+                <div class="ai-buttons-inline">
+                    <button type="button" class="ai-btn-small" onclick="improveBullets('work_responsibilities_${newIndex}')">
+                        <i class="fas fa-wand-magic-sparkles"></i> Improve All
+                    </button>
+                    <button type="button" class="ai-btn-small" onclick="checkGrammar('work_responsibilities_${newIndex}')">
+                        <i class="fas fa-spell-check"></i> Check Grammar
+                    </button>
+                </div>
             </div>
         </div>
         <button type="button" class="remove-btn" onclick="removeItem(this, 'work')">Remove Job</button>

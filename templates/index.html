@@ -66,7 +66,20 @@
                 <h2><i class="fas fa-file-alt"></i> Professional Summary</h2>
                 <div class="form-group full-width">
                     <label for="summary">Brief summary about yourself *</label>
-                    <textarea id="summary" name="summary" rows="5" placeholder="Write 2-3 sentences about your professional background and goals..." required></textarea>
+                    <div class="ai-enhanced-field">
+                        <textarea id="summary" name="summary" rows="5" placeholder="Write 2-3 sentences about your professional background and goals..." required></textarea>
+                        <div class="ai-buttons">
+                            <button type="button" class="ai-btn" onclick="openAIGenerateSummary()">
+                                <i class="fas fa-magic"></i> Generate with AI
+                            </button>
+                            <button type="button" class="ai-btn" onclick="improveWithAI('summary')">
+                                <i class="fas fa-wand-magic-sparkles"></i> Improve
+                            </button>
+                            <button type="button" class="ai-btn" onclick="checkGrammar('summary')">
+                                <i class="fas fa-spell-check"></i> Check Grammar
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -105,6 +118,14 @@
                             <div class="form-group full-width">
                                 <label>Key Responsibilities (one per line)</label>
                                 <textarea name="work_responsibilities_0" rows="4" placeholder="• Managed team of 5 developers&#10;• Led project delivery&#10;• Improved system performance"></textarea>
+                                <div class="ai-buttons-inline">
+                                    <button type="button" class="ai-btn-small" onclick="improveBullets('work_responsibilities_0')">
+                                        <i class="fas fa-wand-magic-sparkles"></i> Improve All
+                                    </button>
+                                    <button type="button" class="ai-btn-small" onclick="checkGrammar('work_responsibilities_0')">
+                                        <i class="fas fa-spell-check"></i> Check Grammar
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <button type="button" class="remove-btn" onclick="removeItem(this, 'work')">Remove Job</button>
@@ -162,6 +183,9 @@
                     <div class="form-group full-width">
                         <label>Technical Skills (comma separated)</label>
                         <input type="text" id="technical_skills" name="technical_skills" placeholder="Python, JavaScript, React, SQL, AWS">
+                        <button type="button" class="ai-btn-small" onclick="openAISkillsSuggester()">
+                            <i class="fas fa-lightbulb"></i> AI Suggest Skills
+                        </button>
                     </div>
                     <div class="form-group full-width">
                         <label>Soft Skills (comma separated)</label>
@@ -203,6 +227,80 @@
         </form>
     </div>
 
+    <!-- AI Modals -->
+    <!-- Generate Summary Modal -->
+    <div id="aiSummaryModal" class="ai-modal">
+        <div class="ai-modal-content">
+            <div class="ai-modal-header">
+                <h3><i class="fas fa-magic"></i> Generate Professional Summary</h3>
+                <button class="ai-modal-close" onclick="closeAIModal('aiSummaryModal')">&times;</button>
+            </div>
+            <div class="ai-modal-body">
+                <div class="form-group">
+                    <label>Your Job Title</label>
+                    <input type="text" id="aiJobTitle" placeholder="e.g. Software Engineer">
+                </div>
+                <div class="form-group">
+                    <label>Years of Experience</label>
+                    <input type="text" id="aiExperience" placeholder="e.g. 5 years">
+                </div>
+                <div class="form-group">
+                    <label>Key Skills (comma separated)</label>
+                    <input type="text" id="aiKeySkills" placeholder="e.g. Python, Leadership, Problem Solving">
+                </div>
+                <button class="ai-generate-btn" onclick="generateSummaryAI()">
+                    <i class="fas fa-sparkles"></i> Generate Summary
+                </button>
+                <div id="aiSummaryResult" class="ai-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Suggest Skills Modal -->
+    <div id="aiSkillsModal" class="ai-modal">
+        <div class="ai-modal-content">
+            <div class="ai-modal-header">
+                <h3><i class="fas fa-lightbulb"></i> AI Skill Suggestions</h3>
+                <button class="ai-modal-close" onclick="closeAIModal('aiSkillsModal')">&times;</button>
+            </div>
+            <div class="ai-modal-body">
+                <div class="form-group">
+                    <label>Your Job Title</label>
+                    <input type="text" id="aiSkillJobTitle" placeholder="e.g. Data Analyst">
+                </div>
+                <button class="ai-generate-btn" onclick="suggestSkillsAI()">
+                    <i class="fas fa-sparkles"></i> Suggest Skills
+                </button>
+                <div id="aiSkillsResult" class="ai-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rewrite Tone Modal -->
+    <div id="aiToneModal" class="ai-modal">
+        <div class="ai-modal-content">
+            <div class="ai-modal-header">
+                <h3><i class="fas fa-pen-fancy"></i> Rewrite with Different Tone</h3>
+                <button class="ai-modal-close" onclick="closeAIModal('aiToneModal')">&times;</button>
+            </div>
+            <div class="ai-modal-body">
+                <div class="tone-options">
+                    <button class="tone-btn" onclick="rewriteTone('professional')">
+                        <i class="fas fa-briefcase"></i> More Professional
+                    </button>
+                    <button class="tone-btn" onclick="rewriteTone('concise')">
+                        <i class="fas fa-compress"></i> More Concise
+                    </button>
+                    <button class="tone-btn" onclick="rewriteTone('action')">
+                        <i class="fas fa-bolt"></i> More Action-Oriented
+                    </button>
+                </div>
+                <div id="aiToneResult" class="ai-result"></div>
+            </div>
+        </div>
+    </div>
+
     <script src="{{ url_for('static', filename='js/form.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ai-helper.js') }}"></script>
 </body>
 </html>
