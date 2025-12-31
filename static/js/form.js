@@ -346,3 +346,55 @@ function removeItem(button, type) {
         renumberItems('#certificationsContainer', 'Certification');
     }
 }
+
+// Character counter for summary field
+function setupCharacterCounter() {
+    const summaryField = document.getElementById('summary');
+    const charCounter = document.getElementById('summaryCharCount');
+    
+    if (!summaryField || !charCounter) return;
+    
+    const minTarget = 150;  // Minimum good length
+    const maxTarget = 300;  // Maximum recommended length
+    
+    function updateCounter() {
+        const length = summaryField.value.length;
+        const wordCount = summaryField.value.trim().split(/\s+/).filter(w => w.length > 0).length;
+        
+        // Update counter text
+        charCounter.innerHTML = `${length} / ${maxTarget} characters <span style="opacity: 0.7;">(${wordCount} words)</span>`;
+        
+        // Update counter style based on length
+        charCounter.classList.remove('good', 'warning', 'error');
+        
+        if (length === 0) {
+            // No text
+            charCounter.classList.add('neutral');
+        } else if (length < minTarget) {
+            // Too short
+            charCounter.classList.add('warning');
+            charCounter.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${length} / ${maxTarget} characters <span style="opacity: 0.7;">(${wordCount} words) - Add more detail</span>`;
+        } else if (length > maxTarget) {
+            // Too long
+            charCounter.classList.add('error');
+            charCounter.innerHTML = `<i class="fas fa-times-circle"></i> ${length} / ${maxTarget} characters <span style="opacity: 0.7;">(${wordCount} words) - Too long!</span>`;
+        } else {
+            // Just right
+            charCounter.classList.add('good');
+            charCounter.innerHTML = `<i class="fas fa-check-circle"></i> ${length} / ${maxTarget} characters <span style="opacity: 0.7;">(${wordCount} words) - Perfect!</span>`;
+        }
+    }
+    
+    // Initial update
+    updateCounter();
+    
+    // Update on input
+    summaryField.addEventListener('input', updateCounter);
+    
+    // Also update when AI generates content
+    const observer = new MutationObserver(updateCounter);
+    observer.observe(summaryField, { attributes: true, childList: true, subtree: true });
+}
+
+// Initialize character counter when page loads
+document.addEventListener('DOMContentLoaded', setupCharacterCounter);

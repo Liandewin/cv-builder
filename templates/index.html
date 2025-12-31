@@ -62,26 +62,30 @@
             </section>
 
             <!-- Professional Summary Section -->
-            <section class="form-section">
-                <h2><i class="fas fa-file-alt"></i> Professional Summary</h2>
-                <div class="form-group full-width">
-                    <label for="summary">Brief summary about yourself *</label>
-                    <div class="ai-enhanced-field">
-                        <textarea id="summary" name="summary" rows="5" placeholder="Write 2-3 sentences about your professional background and goals..." required></textarea>
-                        <div class="ai-buttons">
-                            <button type="button" class="ai-btn" onclick="openAIGenerateSummary()">
-                                <i class="fas fa-magic"></i> Generate with AI
-                            </button>
-                            <button type="button" class="ai-btn" onclick="improveWithAI('summary')">
-                                <i class="fas fa-wand-magic-sparkles"></i> Improve
-                            </button>
-                            <button type="button" class="ai-btn" onclick="checkGrammar('summary')">
-                                <i class="fas fa-spell-check"></i> Check Grammar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
+           <!-- Professional Summary Section -->
+<section class="form-section">
+    <h2><i class="fas fa-file-alt"></i> Professional Summary</h2>
+    <div class="form-group full-width">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <label for="summary">Brief summary about yourself *</label>
+            <div id="summaryCharCount" class="char-counter">0 / 300 characters</div>
+        </div>
+        <div class="ai-enhanced-field">
+            <textarea id="summary" name="summary" rows="5" placeholder="Write 2-3 sentences about your professional background and goals..." required></textarea>
+            <div class="ai-buttons">
+                <button type="button" class="ai-btn" onclick="openAIGenerateSummary()">
+                    <i class="fas fa-magic"></i> Generate with AI
+                </button>
+                <button type="button" class="ai-btn" onclick="improveWithAI('summary')">
+                    <i class="fas fa-wand-magic-sparkles"></i> Improve
+                </button>
+                <button type="button" class="ai-btn" onclick="checkGrammar('summary')">
+                    <i class="fas fa-spell-check"></i> Check Grammar
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
 
             <!-- Work Experience Section -->
             <section class="form-section">

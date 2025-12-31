@@ -15,6 +15,7 @@
             <div class="preview-actions">
                 <button onclick="window.history.back()" class="secondary-btn"><i class="fas fa-arrow-left"></i> Edit CV</button>
                 <button onclick="generatePDF()" class="primary-btn"><i class="fas fa-download"></i> Download PDF</button>
+                <button onclick="downloadAllTemplates()" class="secondary-btn"><i class="fas fa-download"></i> Download All Templates</button>
             </div>
         </div>
 
@@ -312,6 +313,70 @@
                 button.innerHTML = originalHTML;
             });
         }
+        async function downloadAllTemplates() {
+    const button = event.target.closest('button');
+    const originalHTML = button.innerHTML;
+    button.disabled = true;
+    
+    const templates = [
+        { id: 'modern', name: 'Modern' },
+        { id: 'classic', name: 'Classic' },
+        { id: 'minimal', name: 'Minimal' },
+        { id: 'professional', name: 'Professional' },
+        { id: 'ats', name: 'ATS-Friendly' }
+    ];
+    
+    for (let i = 0; i < templates.length; i++) {
+        const template = templates[i];
+        
+        // Update button with progress
+        button.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Downloading ${template.name} (${i + 1}/${templates.length})...`;
+        
+        try {
+            const response = await fetch('/generate-pdf', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    cv_data: cvData,
+                    template: template.id
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Failed to generate ${template.name} template`);
+            }
+            
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `CV_${cvData.personal_info.name.replace(/ /g, '_')}_${template.name}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+            
+            // Small delay between downloads to prevent browser blocking
+            if (i < templates.length - 1) {
+                await new Promise(resolve => setTimeout(resolve, 800));
+            }
+        } catch (error) {
+            console.error(`Error generating ${template.name}:`, error);
+            alert(`Failed to generate ${template.name} template. Continuing...`);
+        }
+    }
+    
+    // Restore button
+    button.disabled = false;
+    button.innerHTML = '<i class="fas fa-check"></i> All Templates Downloaded!';
+    
+    // Reset button after 3 seconds
+    setTimeout(() => {
+        button.innerHTML = originalHTML;
+    }, 3000);
+}
     </script>
 </body>
 </html>

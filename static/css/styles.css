@@ -1184,3 +1184,33 @@ img, video, iframe {
     transform: translateY(-5px);
     box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6);
 }
+
+/* Character Counter */
+.char-counter {
+    font-size: 0.85em;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: #f8f9fa;
+    color: #6c757d;
+    transition: all 0.3s ease;
+}
+
+.char-counter.good {
+    background: #d4edda;
+    color: #155724;
+}
+
+.char-counter.warning {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.char-counter.error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.char-counter i {
+    margin-right: 5px;
+}
