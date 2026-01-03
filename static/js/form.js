@@ -83,7 +83,7 @@ function collectFormData() {
             },
             linkedin: document.getElementById('linkedin').value,
             website: document.getElementById('website').value,
-            photo_url: ""
+            photo_url: uploadedPhotoData || ""
         },
         professional_summary: document.getElementById('summary').value,
         work_experience: collectWorkExperience(),
@@ -398,3 +398,140 @@ function setupCharacterCounter() {
 
 // Initialize character counter when page loads
 document.addEventListener('DOMContentLoaded', setupCharacterCounter);
+
+// ===================================
+// PROFILE PHOTO UPLOAD FUNCTIONALITY
+// ===================================
+
+let uploadedPhotoData = null; // Store base64 photo data
+
+// Initialize photo upload on page load
+document.addEventListener('DOMContentLoaded', function() {
+    initPhotoUpload();
+});
+
+function initPhotoUpload() {
+    const dropZone = document.getElementById('photoDropZone');
+    const fileInput = document.getElementById('photoInput');
+    
+    if (!dropZone || !fileInput) return;
+    
+    // Prevent default drag behaviors
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+        document.body.addEventListener(eventName, preventDefaults, false);
+    });
+    
+    // Highlight drop zone when item is dragged over it
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.classList.add('drag-over');
+        });
+    });
+    
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.classList.remove('drag-over');
+        });
+    });
+    
+    // Handle dropped files
+    dropZone.addEventListener('drop', handleDrop);
+    
+    // Handle file input change
+    fileInput.addEventListener('change', function(e) {
+        if (e.target.files.length > 0) {
+            handleFile(e.target.files[0]);
+        }
+    });
+    
+    // Click on drop zone to trigger file input
+    dropZone.addEventListener('click', function(e) {
+        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'LABEL') {
+            fileInput.click();
+        }
+    });
+}
+
+function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+}
+
+function handleDrop(e) {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    
+    if (files.length > 0) {
+        handleFile(files[0]);
+    }
+}
+
+function handleFile(file) {
+    // Validate file type
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    if (!validTypes.includes(file.type)) {
+        alert('Please upload a JPG or PNG image only.');
+        return;
+    }
+    
+    // Validate file size (5MB max)
+    const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+    if (file.size > maxSize) {
+        alert('File size must be less than 5MB.');
+        return;
+    }
+    
+    // Read file and convert to base64
+    const reader = new FileReader();
+    
+    reader.onload = function(e) {
+        uploadedPhotoData = e.target.result; // Store base64 data
+        displayFileInfo(file);
+    };
+    
+    reader.onerror = function() {
+        alert('Error reading file. Please try again.');
+    };
+    
+    reader.readAsDataURL(file);
+}
+
+function displayFileInfo(file) {
+    const uploadTab = document.getElementById('photoDropZone');
+    const fileInfo = document.getElementById('photoFileInfo');
+    const fileName = document.getElementById('photoFileName');
+    const fileSize = document.getElementById('photoFileSize');
+    
+    // Hide upload tab, show file info
+    uploadTab.style.display = 'none';
+    fileInfo.style.display = 'flex';
+    
+    // Update file details
+    fileName.textContent = file.name;
+    fileSize.textContent = formatFileSize(file.size);
+}
+
+function removePhoto() {
+    const uploadTab = document.getElementById('photoDropZone');
+    const fileInfo = document.getElementById('photoFileInfo');
+    const fileInput = document.getElementById('photoInput');
+    
+    // Clear data
+    uploadedPhotoData = null;
+    fileInput.value = '';
+    
+    // Show upload tab, hide file info
+    uploadTab.style.display = 'inline-flex';
+    fileInfo.style.display = 'none';
+}
+
+function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    
+    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
+}

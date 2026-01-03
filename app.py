@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify, send_file, session
+from flask_session import Session
 from weasyprint import HTML
 from datetime import datetime
 import json
@@ -12,6 +13,12 @@ load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'your-secret-key-change-this-in-production')
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max
+
+# Configure server-side sessions
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SESSION_FILE_DIR'] = './flask_session'
+Session(app)
 
 # Initialize Anthropic client
 anthropic_client = Anthropic(api_key=os.getenv('ANTHROPIC_API_KEY'))

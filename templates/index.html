@@ -18,6 +18,36 @@
             <!-- Personal Information Section -->
             <section class="form-section">
                 <h2><i class="fas fa-user"></i> Personal Information</h2>
+
+                <!-- Profile Photo Upload -->
+                <div class="form-group full-width">
+                    <label>Profile Photo (Optional)</label>
+                    <div class="photo-upload-container">
+                        <div id="photoDropZone" class="photo-upload-tab">
+                            <div class="upload-tab-icon">
+                                <i class="fas fa-paperclip"></i>
+                            </div>
+                            <div class="upload-tab-text">
+                                <p class="upload-tab-title">Select profile photo</p>
+                                <p class="upload-tab-subtitle">or drag and drop file here</p>
+                            </div>
+                            <input type="file" id="photoInput" accept="image/jpeg,image/jpg,image/png" style="display: none;">
+                        </div>
+                        
+                        <div id="photoFileInfo" class="photo-file-info" style="display: none;">
+                            <div class="file-info-content">
+                                <i class="fas fa-check-circle"></i>
+                                <span id="photoFileName">photo.jpg</span>
+                                <span id="photoFileSize" class="file-size">2.3 MB</span>
+                            </div>
+                            <button type="button" class="remove-photo-btn" onclick="removePhoto()">
+                                <i class="fas fa-times"></i> Remove
+                            </button>
+                        </div>
+                        <p class="file-requirements">JPG or PNG only • Max 5MB</p>
+                    </div>
+                </div>
+
                 <div class="form-grid">
                     <div class="form-group full-width">
                         <label for="name">Full Name *</label>

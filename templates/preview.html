@@ -89,24 +89,32 @@
         <div class="cv-preview-wrapper">
             <div class="cv-document template-modern" id="cvDocument">
                 <!-- Header Section -->
-                <div class="cv-header">
-                    <h1 class="cv-name">{{ cv_data.personal_info.name }}</h1>
-                    <h2 class="cv-title">{{ cv_data.personal_info.title }}</h2>
-                    
-                    <div class="cv-contact">
-                        <span><i class="fas fa-envelope"></i> {{ cv_data.personal_info.email }}</span>
-                        <span><i class="fas fa-phone"></i> {{ cv_data.personal_info.phone }}</span>
-                        {% if cv_data.personal_info.address.city %}
-                        <span><i class="fas fa-map-marker-alt"></i> {{ cv_data.personal_info.address.city }}{% if cv_data.personal_info.address.country %}, {{ cv_data.personal_info.address.country }}{% endif %}</span>
-                        {% endif %}
-                        {% if cv_data.personal_info.linkedin %}
-                        <span><i class="fab fa-linkedin"></i> <a href="{{ cv_data.personal_info.linkedin }}" target="_blank">LinkedIn</a></span>
-                        {% endif %}
-                        {% if cv_data.personal_info.website %}
-                        <span><i class="fas fa-globe"></i> <a href="{{ cv_data.personal_info.website }}" target="_blank">Website</a></span>
-                        {% endif %}
-                    </div>
-                </div>
+<div class="cv-header">
+    {% if cv_data.personal_info.get('photo_url') %}
+    <div class="cv-photo-container">
+        <img src="{{ cv_data.personal_info.photo_url }}" alt="Profile Photo" class="cv-photo">
+    </div>
+    {% endif %}
+    
+    <div class="cv-header-content">
+        <h1 class="cv-name">{{ cv_data.personal_info.name }}</h1>
+        <h2 class="cv-title">{{ cv_data.personal_info.title }}</h2>
+        
+        <div class="cv-contact">
+            <span><i class="fas fa-envelope"></i> {{ cv_data.personal_info.email }}</span>
+            <span><i class="fas fa-phone"></i> {{ cv_data.personal_info.phone }}</span>
+            {% if cv_data.personal_info.address.city %}
+            <span><i class="fas fa-map-marker-alt"></i> {{ cv_data.personal_info.address.city }}{% if cv_data.personal_info.address.country %}, {{ cv_data.personal_info.address.country }}{% endif %}</span>
+            {% endif %}
+            {% if cv_data.personal_info.linkedin %}
+            <span><i class="fab fa-linkedin"></i> <a href="{{ cv_data.personal_info.linkedin }}" target="_blank">LinkedIn</a></span>
+            {% endif %}
+            {% if cv_data.personal_info.website %}
+            <span><i class="fas fa-globe"></i> <a href="{{ cv_data.personal_info.website }}" target="_blank">Website</a></span>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
                 <!-- Professional Summary -->
                 {% if cv_data.professional_summary %}

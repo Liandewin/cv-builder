@@ -839,3 +839,160 @@
         box-shadow: none;
     }
 }
+
+/* =============================
+   PROFILE PHOTO STYLES
+   ============================= */
+
+/* Photo Container */
+.cv-photo-container {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    z-index: 10;
+}
+
+.cv-photo {
+    width: 138px;  /* 35mm at 96dpi for screen */
+    height: 177px; /* 45mm at 96dpi for screen */
+    object-fit: cover;
+    border-radius: 12px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    background: white;
+}
+
+/* Adjust header content when photo is present */
+.cv-header:has(.cv-photo-container) {
+    padding-right: 200px; /* Make room for photo */
+}
+
+.cv-header-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* =============================
+   TEMPLATE-SPECIFIC PHOTO STYLES
+   ============================= */
+
+/* Modern Template */
+.cv-document.template-modern .cv-photo {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Classic Template */
+.cv-document.template-classic .cv-photo {
+    border-radius: 8px;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Minimal Template */
+.cv-document.template-minimal .cv-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 40px 0 30px;
+}
+
+.cv-document.template-minimal .cv-photo-container {
+    position: static;
+    flex-shrink: 0;
+}
+
+.cv-document.template-minimal .cv-photo {
+    border: 3px solid #2c3e50;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.cv-document.template-minimal .cv-header-content {
+    flex: 1;
+}
+
+/* Professional Template */
+.cv-document.template-professional .cv-photo {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 24px rgba(30, 58, 138, 0.3);
+}
+
+/* ATS-Friendly Template */
+.cv-document.template-ats .cv-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.cv-document.template-ats .cv-photo-container {
+    position: static;
+    flex-shrink: 0;
+}
+
+.cv-document.template-ats .cv-photo {
+    border: 2px solid #2c3e50;
+    border-radius: 4px;
+    box-shadow: none;
+}
+
+.cv-document.template-ats .cv-header-content {
+    flex: 1;
+}
+
+/* =============================
+   RESPONSIVE DESIGN
+   ============================= */
+
+@media (max-width: 768px) {
+    .cv-photo-container {
+        position: static !important;
+        margin: 0 auto 20px;
+        text-align: center;
+    }
+    
+    .cv-photo {
+        width: 120px;
+        height: 154px;
+    }
+    
+    .cv-header:has(.cv-photo-container) {
+        padding-right: 0 !important;
+    }
+    
+    .cv-header {
+        text-align: center;
+    }
+}
+
+/* =============================
+   PRINT STYLES (PDF)
+   ============================= */
+
+@media print {
+    .cv-photo {
+        width: 35mm !important;  /* Exact passport size */
+        height: 45mm !important; /* Exact passport size */
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .cv-photo-container {
+        position: absolute;
+        top: 20px;
+        right: 40px;
+    }
+    
+    /* Override for minimal and ATS templates in print */
+    .cv-document.template-minimal .cv-photo-container,
+    .cv-document.template-ats .cv-photo-container {
+        position: absolute;
+        top: 20px;
+        right: 40px;
+    }
+    
+    .cv-document.template-minimal .cv-header,
+    .cv-document.template-ats .cv-header {
+        display: block;
+    }
+}

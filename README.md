@@ -4,7 +4,7 @@ A modern, intuitive web application for creating professional CVs/resumes with b
 
 ## 🚀 Live Demo
 
-**Dev URL**: [Your Render URL will go here]
+**Dev URL**: https://cv-builder-dev.onrender.com
 
 ## ✨ Features
 
@@ -160,15 +160,12 @@ This is currently a development/demo project. For production deployment, conside
 - Setting up logging and monitoring
 - Adding unit/integration tests
 
-## 📄 License
-
-MIT License
 
 ## 👤 Developer
 
-[Your Name]  
-[Your Email]  
-[Your GitHub]
+Lian de Winnaar 
+liandewinnaar33@gmail.com
+Liandewin
 
 ---
 
