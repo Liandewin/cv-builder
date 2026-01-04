@@ -152,12 +152,14 @@ def ai_generate_summary():
         prompt = f"""Write a professional CV summary for a {job_title} with {experience_years} years of experience. 
 Key skills: {key_skills}
 
-Requirements:
+CRITICAL REQUIREMENTS:
 - 2-3 sentences
 - Professional tone
-- Highlight key achievements and value
 - Use active voice
-- Be specific and impactful
+- DO NOT include any specific numbers, percentages, or dollar amounts
+- DO NOT fabricate metrics or achievements
+- Focus on skills, experience, and professional qualities
+- Keep it general and truthful
 
 Only return the summary text, no preamble."""
 
@@ -186,12 +188,15 @@ def ai_improve_bullet():
 
 "{bullet}"
 
-Requirements:
-- Make it more specific and action-oriented
-- Add metrics or quantifiable results if possible (use realistic estimates)
-- Use strong action verbs
+CRITICAL REQUIREMENTS:
+- Make it more professional and action-oriented
+- Use strong action verbs (Led, Managed, Developed, Implemented, etc.)
+- Keep the SAME core facts and responsibilities
+- DO NOT add any numbers, percentages, or metrics that weren't in the original
+- DO NOT add dollar amounts, team sizes, or timeframes unless specified in the original
+- DO NOT fabricate achievements or results
+- Only improve the wording and professionalism
 - Keep it concise (1-2 lines)
-- Professional tone
 
 Only return the improved bullet point, no preamble or explanation."""
 
@@ -271,6 +276,8 @@ def ai_rewrite_tone():
         prompt = f"""Rewrite the following text to be {instruction}:
 
 "{text}"
+
+CRITICAL: Keep the same facts and information. DO NOT add numbers, metrics, or achievements that weren't in the original text.
 
 Only return the rewritten text, no preamble or explanation."""
 

@@ -225,8 +225,8 @@ function addWorkExperience() {
                 <input type="date" name="work_start_${newIndex}" required>
             </div>
             <div class="form-group">
-                <label>End Date</label>
-                <input type="date" name="work_end_${newIndex}">
+                <label>End Date *</label>
+                <input type="date" name="work_end_${newIndex}" required>
             </div>
             <div class="form-group checkbox-group">
                 <label>
@@ -250,6 +250,9 @@ function addWorkExperience() {
     `;
     
     container.appendChild(newItem);
+
+    // Setup date validation for the new entry
+    setupWorkExperienceDateValidation(newIndex);
 }
 
 // Add education entry
@@ -298,6 +301,9 @@ function addEducation() {
     `;
     
     container.appendChild(newItem);
+
+    // Setup date validation for the new entry
+    setupEducationDateValidation(newIndex);
 }
 
 // Add certification entry
@@ -534,4 +540,126 @@ function formatFileSize(bytes) {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     
     return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
+}
+
+// ===================================
+// DATE VALIDATION
+// ===================================
+
+// Initialize date validation on page load
+document.addEventListener('DOMContentLoaded', function() {
+    setupDateValidation();
+});
+
+function setupDateValidation() {
+    // Setup validation for existing work experience fields
+    setupWorkExperienceDateValidation(0);
+    
+    // Setup validation for existing education fields
+    setupEducationDateValidation(0);
+}
+
+function setupWorkExperienceDateValidation(index) {
+    const startDate = document.querySelector(`input[name="work_start_${index}"]`);
+    const endDate = document.querySelector(`input[name="work_end_${index}"]`);
+    const currentCheckbox = document.querySelector(`input[name="work_current_${index}"]`);
+    
+    if (!startDate || !endDate) return;
+    
+    // When start date changes, set minimum for end date
+    startDate.addEventListener('change', function() {
+        if (this.value) {
+            endDate.min = this.value;
+            
+            // If end date is now invalid, clear it
+            if (endDate.value && endDate.value < this.value) {
+                endDate.value = '';
+                showDateError(endDate, 'End date cannot be before start date');
+            }
+        }
+    });
+    
+    // When end date changes, validate it
+    endDate.addEventListener('change', function() {
+        if (this.value && startDate.value && this.value < startDate.value) {
+            this.value = '';
+            showDateError(this, 'End date cannot be before start date');
+        } else {
+            clearDateError(this);
+        }
+    });
+    
+    // When "currently working here" is checked, disable end date
+    if (currentCheckbox) {
+        currentCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                endDate.value = '';
+                endDate.disabled = true;
+                endDate.removeAttribute('required');
+            } else {
+                endDate.disabled = false;
+                endDate.setAttribute('required', '');
+            }
+        });
+    }
+}
+
+function setupEducationDateValidation(index) {
+    const startDate = document.querySelector(`input[name="edu_start_${index}"]`);
+    const endDate = document.querySelector(`input[name="edu_end_${index}"]`);
+    
+    if (!startDate || !endDate) return;
+    
+    // When start date changes, set minimum for end date
+    startDate.addEventListener('change', function() {
+        if (this.value) {
+            endDate.min = this.value;
+            
+            // If end date is now invalid, clear it
+            if (endDate.value && endDate.value < this.value) {
+                endDate.value = '';
+                showDateError(endDate, 'End date cannot be before start date');
+            }
+        }
+    });
+    
+    // When end date changes, validate it
+    endDate.addEventListener('change', function() {
+        if (this.value && startDate.value && this.value < startDate.value) {
+            this.value = '';
+            showDateError(this, 'End date cannot be before start date');
+        } else {
+            clearDateError(this);
+        }
+    });
+}
+
+function showDateError(input, message) {
+    // Remove existing error if any
+    clearDateError(input);
+    
+    // Create error message
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'date-error';
+    errorDiv.style.color = '#e53e3e';
+    errorDiv.style.fontSize = '0.85em';
+    errorDiv.style.marginTop = '5px';
+    errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+    
+    // Add after input
+    input.parentElement.appendChild(errorDiv);
+    
+    // Add error styling to input
+    input.style.borderColor = '#fc8181';
+    
+    // Show alert
+    alert(message);
+}
+
+function clearDateError(input) {
+    const errorDiv = input.parentElement.querySelector('.date-error');
+    if (errorDiv) {
+        errorDiv.remove();
+    }
+    input.style.borderColor = '';
 }
