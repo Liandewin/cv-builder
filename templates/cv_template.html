@@ -296,26 +296,130 @@
             color: white;
             text-decoration: underline;
         }
+
+        /* ===================================
+   PROFILE PHOTO STYLES FOR PDF
+   =================================== */
+
+/* Photo Container */
+.cv-photo-container {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    z-index: 10;
+}
+
+.cv-photo {
+    width: 35mm;  /* Passport photo size */
+    height: 45mm; /* Passport photo size */
+    object-fit: cover;
+    border-radius: 8px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background: white;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+/* Adjust header content when photo is present */
+.cv-header:has(.cv-photo-container) {
+    padding-right: 160px;
+}
+
+.cv-header-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Template-specific photo styles */
+.template-modern .cv-photo {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.template-classic .cv-photo {
+    border-radius: 6px;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.template-minimal .cv-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.template-minimal .cv-photo-container {
+    position: static;
+    flex-shrink: 0;
+}
+
+.template-minimal .cv-photo {
+    border: 2px solid #2c3e50;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.template-minimal .cv-header-content {
+    flex: 1;
+}
+
+.template-minimal .cv-header:has(.cv-photo-container) {
+    padding-right: 0;
+}
+
+.template-professional .cv-photo {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+}
+
+.template-ats .cv-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.template-ats .cv-photo-container {
+    position: static;
+    flex-shrink: 0;
+}
+
+.template-ats .cv-photo {
+    border: 1px solid #2c3e50;
+    border-radius: 3px;
+    box-shadow: none;
+}
+
+.template-ats .cv-header-content {
+    flex: 1;
+}
+
+.template-ats .cv-header:has(.cv-photo-container) {
+    padding-right: 0;
+}
     </style>
 </head>
 <body>
     <div class="cv-container template-{{ template }}">
         <!-- Header -->
         <div class="cv-header">
+            {% if cv_data.personal_info.get('photo_url') %}
+                <div class="cv-photo-container">
+                    <img src="{{ cv_data.personal_info.photo_url }}" alt="Profile Photo" class="cv-photo">
+                </div>
+                {% endif %}
             <h1 class="cv-name">{{ cv_data.personal_info.name }}</h1>
             <h2 class="cv-title">{{ cv_data.personal_info.title }}</h2>
             
             <div class="cv-contact">
-                <span>✉ {{ cv_data.personal_info.email }}</span>
-                <span>☎ {{ cv_data.personal_info.phone }}</span>
+                <span> <a href="mailto:{{ cv_data.personal_info.email }}">{{ cv_data.personal_info.email }}</a></span>
+                <span> {{ cv_data.personal_info.phone }}</span>
                 {% if cv_data.personal_info.address.city %}
-                <span>📍 {{ cv_data.personal_info.address.city }}{% if cv_data.personal_info.address.country %}, {{ cv_data.personal_info.address.country }}{% endif %}</span>
+                <span> {{ cv_data.personal_info.address.city }}{% if cv_data.personal_info.address.country %}, {{ cv_data.personal_info.address.country }}{% endif %}</span>
                 {% endif %}
                 {% if cv_data.personal_info.linkedin %}
-                <span>🔗 <a href="{{ cv_data.personal_info.linkedin }}">LinkedIn</a></span>
+                <span> <a href="{{ cv_data.personal_info.linkedin }}">LinkedIn</a></span>
                 {% endif %}
                 {% if cv_data.personal_info.website %}
-                <span>🌐 <a href="{{ cv_data.personal_info.website }}">Website</a></span>
+                <span> <a href="{{ cv_data.personal_info.website }}">Website</a></span>
                 {% endif %}
             </div>
         </div>

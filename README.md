@@ -163,12 +163,12 @@ This is currently a development/demo project. For production deployment, conside
 
 ## 👤 Developer
 
-Lian de Winnaar 
-liandewinnaar33@gmail.com
-Liandewin
+Name and Surname = Lian de Winnaar 
+Email Address = liandewinnaar33@gmail.com
+GitHub = Liandewin
 
 ---
 
 **Status**: Development/Demo  
 **Version**: 1.0.0  
-**Last Updated**: December 2025
+**Last Updated**: January 2025

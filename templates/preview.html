@@ -101,7 +101,7 @@
         <h2 class="cv-title">{{ cv_data.personal_info.title }}</h2>
         
         <div class="cv-contact">
-            <span><i class="fas fa-envelope"></i> {{ cv_data.personal_info.email }}</span>
+            <span><i class="fas fa-envelope"></i> <a href="mailto:{{ cv_data.personal_info.email }}">{{ cv_data.personal_info.email }}</a></span>
             <span><i class="fas fa-phone"></i> {{ cv_data.personal_info.phone }}</span>
             {% if cv_data.personal_info.address.city %}
             <span><i class="fas fa-map-marker-alt"></i> {{ cv_data.personal_info.address.city }}{% if cv_data.personal_info.address.country %}, {{ cv_data.personal_info.address.country }}{% endif %}</span>
