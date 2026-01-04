@@ -342,15 +342,10 @@
     border-color: rgba(255, 255, 255, 0.4);
 }
 
-.template-minimal .cv-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-}
-
 .template-minimal .cv-photo-container {
-    position: static;
-    flex-shrink: 0;
+    position: absolute;
+    top: 20px;
+    right: 40px;
 }
 
 .template-minimal .cv-photo {
@@ -358,12 +353,8 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.template-minimal .cv-header-content {
-    flex: 1;
-}
-
 .template-minimal .cv-header:has(.cv-photo-container) {
-    padding-right: 0;
+    padding-right: 160px;
 }
 
 .template-professional .cv-photo {
@@ -371,15 +362,10 @@
     box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
 }
 
-.template-ats .cv-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-}
-
 .template-ats .cv-photo-container {
-    position: static;
-    flex-shrink: 0;
+    position: absolute;
+    top: 20px;
+    right: 40px;
 }
 
 .template-ats .cv-photo {
@@ -388,13 +374,10 @@
     box-shadow: none;
 }
 
-.template-ats .cv-header-content {
-    flex: 1;
+.template-ats .cv-header:has(.cv-photo-container) {
+    padding-right: 160px;
 }
 
-.template-ats .cv-header:has(.cv-photo-container) {
-    padding-right: 0;
-}
     </style>
 </head>
 <body>

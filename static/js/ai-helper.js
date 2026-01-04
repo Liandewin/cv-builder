@@ -136,8 +136,34 @@ async function suggestSkillsAI() {
 
 // Use Suggested Skills
 function useSkills(technical, soft) {
-    document.getElementById('technical_skills').value = technical;
-    document.getElementById('soft_skills').value = soft;
+    const technicalField = document.getElementById('technical_skills');
+    const softField = document.getElementById('soft_skills');
+    
+    // Get existing skills
+    const existingTechnical = technicalField.value.trim();
+    const existingSoft = softField.value.trim();
+    
+    // Add new skills to existing ones (avoiding duplicates)
+    if (existingTechnical) {
+        // Combine and remove duplicates
+        const allTechnical = existingTechnical + ', ' + technical;
+        const technicalArray = allTechnical.split(',').map(s => s.trim()).filter(s => s);
+        const uniqueTechnical = [...new Set(technicalArray)];
+        technicalField.value = uniqueTechnical.join(', ');
+    } else {
+        technicalField.value = technical;
+    }
+    
+    if (existingSoft) {
+        // Combine and remove duplicates
+        const allSoft = existingSoft + ', ' + soft;
+        const softArray = allSoft.split(',').map(s => s.trim()).filter(s => s);
+        const uniqueSoft = [...new Set(softArray)];
+        softField.value = uniqueSoft.join(', ');
+    } else {
+        softField.value = soft;
+    }
+    
     closeAIModal('aiSkillsModal');
 }
 
