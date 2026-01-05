@@ -115,6 +115,14 @@
     box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
 }
 
+.cv-document.template-modern .cv-header:has(.cv-photo-container) {
+    padding-right: 220px !important;
+}
+
+.cv-header-content {
+    max-width: calc(100% - 180px); /* Leave space for photo */
+}
+
 /* =========================
    TEMPLATE: CLASSIC
    ========================= */
@@ -183,6 +191,10 @@
     padding: 8px 16px;
     border-radius: 4px;
     font-size: 0.9em;
+}
+
+.cv-document.template-classic .cv-header:has(.cv-photo-container) {
+    padding-right: 200px;
 }
 
 /* =========================
@@ -334,6 +346,10 @@
     color: white;
     padding: 10px 18px;
     border-radius: 8px;
+}
+
+.cv-document.template-professional .cv-header:has(.cv-photo-container) {
+    padding-right: 200px;
 }
 
 /* =========================
@@ -864,7 +880,12 @@
 
 /* Adjust header content when photo is present */
 .cv-header:has(.cv-photo-container) {
-    padding-right: 200px; /* Make room for photo */
+    padding-right: 220px !important; /* Make room for photo */
+}
+
+/* Ensure header content doesn't overlap */
+.cv-header-content {
+    max-width: calc(100% - 180px); /* Leave space for photo */
 }
 
 .cv-header-content {
@@ -889,16 +910,10 @@
 }
 
 /* Minimal Template */
-.cv-document.template-minimal .cv-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 30px;
-    padding: 40px 0 30px;
-}
-
 .cv-document.template-minimal .cv-photo-container {
-    position: static;
-    flex-shrink: 0;
+    position: absolute;
+    top: 20px;
+    right: 40px;
 }
 
 .cv-document.template-minimal .cv-photo {
@@ -907,8 +922,8 @@
     border-radius: 8px;
 }
 
-.cv-document.template-minimal .cv-header-content {
-    flex: 1;
+.cv-document.template-minimal .cv-header:has(.cv-photo-container) {
+    padding-right: 200px;
 }
 
 /* Professional Template */
@@ -918,16 +933,10 @@
 }
 
 /* ATS-Friendly Template */
-.cv-document.template-ats .cv-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 20px 0;
-}
-
 .cv-document.template-ats .cv-photo-container {
-    position: static;
-    flex-shrink: 0;
+    position: absolute;
+    top: 20px;
+    right: 40px;
 }
 
 .cv-document.template-ats .cv-photo {
@@ -936,8 +945,8 @@
     box-shadow: none;
 }
 
-.cv-document.template-ats .cv-header-content {
-    flex: 1;
+.cv-document.template-ats .cv-header:has(.cv-photo-container) {
+    padding-right: 200px;
 }
 
 /* =============================
